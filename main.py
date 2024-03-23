@@ -1,6 +1,9 @@
 import pygame
 import math
 import re
+import tkinter as tk
+from threading import Thread
+import time
 
 from arrow import draw_arrow
 
@@ -23,6 +26,18 @@ class Body:
         print("Velocidade x: {} m/s".format(self.vx))
         print("Velocidade y: {} ms/s".format(self.vy))
         print("Massa : {} kg".format(self.mass))
+
+    #Função que guarda as informações do corpo planetário
+    def storage(self):
+        info_planeta = {
+            'Nome': self.name,
+            'Velocidade X (m/s)': self.vx,
+            'Velocidade Y (m/s)': self.vy,
+            'Massa (kg)': self.mass
+        }
+        return info_planeta
+    
+
 
     def draw(self, win,ZOOM,SCALE):
         x = self.x * SCALE + WIDTH / 2
@@ -86,6 +101,7 @@ class Body:
             self.trace.pop(0)
         self.changed = False
 
+
 class gVar:
 
     def __init__(self):
@@ -119,6 +135,7 @@ TIMESTEP = 3600*24
 
 WIDTH = 900
 HEIGHT = 700
+
 
 def bodiesInit(custom):
     
@@ -204,7 +221,6 @@ def velArrow(win,const,arrow):
     end = pygame.Vector2(arrow[0],arrow[1])
     draw_arrow(win,start,end,pygame.Color("red"),4/const.ZOOM,12/const.ZOOM,12/const.ZOOM)
 
-
 def main(ref='sun'):
     custom = input("Utilizar uma simulação pronta? (S/N) ")
 
@@ -241,6 +257,8 @@ def main(ref='sun'):
 
             elif event.type == pygame.KEYDOWN:
                 # Pausa ao apertar espaço
+                if event.key == pygame.K_i:
+                    mostrar_informacoes_gui(bodies)  # Chama a função para exibir as informações dos planetas
                 if event.key == pygame.K_SPACE:
                     arrows = []
                     const.pause()
@@ -303,6 +321,25 @@ def main(ref='sun'):
         pygame.display.update()
 
     pygame.quit()
+#Coleta as informações no dicionário
+def coletar_informacoes(bodies):
+    todas_infos = []
+    for body in bodies:
+        info = body.storage()
+        todas_infos.append(info)
+    return todas_infos
+
+def mostrar_informacoes_gui(bodies):
+        infos = coletar_informacoes(bodies)
+    
+        window = tk.Tk()
+        window.title("Informações dos Planetas")
+    
+        for info in infos:
+            info_text = f"Nome: {info['Nome']}, Velocidade X: {info['Velocidade X (m/s)']}, Velocidade Y: {info['Velocidade Y (m/s)']}, Massa: {info['Massa (kg)']}\n"
+            tk.Label(window, text=info_text).pack()
+
+        window.mainloop()
 
 if __name__ == '__main__':
     main()
