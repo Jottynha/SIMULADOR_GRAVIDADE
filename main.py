@@ -3,7 +3,7 @@ import math
 import re
 import tkinter as tk
 from threading import Thread
-import time
+from tkinter import messagebox
 
 from arrow import draw_arrow
 
@@ -221,13 +221,30 @@ def velArrow(win,const,arrow):
     end = pygame.Vector2(arrow[0],arrow[1])
     draw_arrow(win,start,end,pygame.Color("red"),4/const.ZOOM,12/const.ZOOM,12/const.ZOOM)
 
-def main(ref='sun'):
-    custom = input("Utilizar uma simulação pronta? (S/N) ")
+def mostrar_opcao_simulacao_pronta():
+    root = tk.Tk()
+    root.title("Opção de Simulação")
+    
+    label = tk.Label(root, text="Gostaria de utilizar uma simulação pronta?", font=("Helvetica", 14))
+    label.pack(pady=20)
 
-    if custom.lower() in ["sim","s"]:
-        custom = False
-    else:
-        custom = True
+    def start_custom_simulation():
+        root.destroy()
+        main(custom=True)
+
+    def start_default_simulation():
+        root.destroy()
+        main(custom=False)
+
+    btn_custom = tk.Button(root, text="Sim", font=("Helvetica", 12), command=start_default_simulation)
+    btn_custom.pack(pady=10)
+
+    btn_default = tk.Button(root, text="Não", font=("Helvetica", 12), command=start_custom_simulation)
+    btn_default.pack(pady=10)
+
+    root.mainloop()    
+
+def main(custom=False):
 
     pygame.init()
     const = gVar()
@@ -254,11 +271,12 @@ def main(ref='sun'):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-
+        # Lógica no loop principal para alternar a janela de informações
             elif event.type == pygame.KEYDOWN:
                 # Pausa ao apertar espaço
                 if event.key == pygame.K_i:
-                    mostrar_informacoes_gui(bodies)  # Chama a função para exibir as informações dos planetas
+                        mostrar_informacoes_gui(bodies)  # Exibe a janela de informações
+                        adicionar_corpo()
                 if event.key == pygame.K_SPACE:
                     arrows = []
                     const.pause()
@@ -321,6 +339,8 @@ def main(ref='sun'):
         pygame.display.update()
 
     pygame.quit()
+
+
 #Coleta as informações no dicionário
 def coletar_informacoes(bodies):
     todas_infos = []
@@ -330,16 +350,160 @@ def coletar_informacoes(bodies):
     return todas_infos
 
 def mostrar_informacoes_gui(bodies):
-        infos = coletar_informacoes(bodies)
+    infos = coletar_informacoes(bodies)
     
-        window = tk.Tk()
-        window.title("Informações dos Planetas")
+    window = tk.Tk()
+    window.title("Informações dos Planetas")
     
-        for info in infos:
-            info_text = f"Nome: {info['Nome']}, Velocidade X: {info['Velocidade X (m/s)']}, Velocidade Y: {info['Velocidade Y (m/s)']}, Massa: {info['Massa (kg)']}\n"
-            tk.Label(window, text=info_text).pack()
+    # Definindo cores
+    bg_color = "#f0f0f0"
+    text_color = "#333333"
+    
+    # Criando frames para organizar os elementos
+    header_frame = tk.Frame(window, bg=bg_color)
+    header_frame.pack(pady=10)
+    
+    body_frame = tk.Frame(window, bg=bg_color)
+    body_frame.pack(padx=10, pady=5)
+    
+    # Adicionando cabeçalho
+    tk.Label(header_frame, text="Informações dos Planetas", font=("Helvetica", 16), fg="#007bff", bg=bg_color).pack()
+    
+    # Adicionando informações dos corpos celestes
+    for info in infos:
+        info_text = f"Nome: {info['Nome']}, Velocidade X: {info['Velocidade X (m/s)']}, Velocidade Y: {info['Velocidade Y (m/s)']}, Massa: {info['Massa (kg)']}"
+        tk.Label(body_frame, text=info_text, font=("Helvetica", 12), fg=text_color, bg=bg_color).pack(anchor="w", pady=3)
+    # Função para destruir a janela quando uma tecla é pressionada
+    def destroy_window(event):
+            window.destroy()
+    # Vincula a função `destroy_window` ao evento de tecla pressionada
+    window.bind("<KeyPress>", destroy_window)
 
-        window.mainloop()
+    window.mainloop()
+    return window
+def limpar_arquivo():
+    # Confirmação do usuário
+    resposta = messagebox.askquestion("Limpar Arquivo", "Tem certeza que deseja limpar o arquivo? Todas as informações serão perdidas.")
+
+    if resposta == "yes":
+        # Limpa o arquivo
+        open('input.data', 'w').close()
+        messagebox.showinfo("Limpar Arquivo", "Arquivo limpo com sucesso.")
+    else:
+        return
+
+def adicionar_corpo():
+    janela_adicao = tk.Toplevel()
+    janela_adicao.title("Adicionar Corpo Celeste")
+
+    # Labels
+    tk.Label(janela_adicao, text="Nome: ").grid(row=0, column=0)
+    tk.Label(janela_adicao, text="X: ").grid(row=1, column=0)
+    tk.Label(janela_adicao, text="Y: ").grid(row=2, column=0)
+    tk.Label(janela_adicao, text="Massa: ").grid(row=3, column=0)
+    tk.Label(janela_adicao, text="Velocidade X: ").grid(row=4, column=0)
+    tk.Label(janela_adicao, text="Velocidade Y: ").grid(row=5, column=0)
+    tk.Label(janela_adicao, text="Cor: ").grid(row=6, column=0)
+    tk.Label(janela_adicao, text="Raio: ").grid(row=7, column=0)
+
+    # Campos de entrada
+    nome_entry = tk.Entry(janela_adicao)
+    nome_entry.grid(row=0, column=1)
+    x_entry = tk.Entry(janela_adicao)
+    x_entry.grid(row=1, column=1)
+    y_entry = tk.Entry(janela_adicao)
+    y_entry.grid(row=2, column=1)
+    massa_entry = tk.Entry(janela_adicao)
+    massa_entry.grid(row=3, column=1)
+    vx_entry = tk.Entry(janela_adicao)
+    vx_entry.grid(row=4, column=1)
+    vy_entry = tk.Entry(janela_adicao)
+    vy_entry.grid(row=5, column=1)
+    cor_entry = tk.Entry(janela_adicao)
+    cor_entry.grid(row=6, column=1)
+    raio_entry = tk.Entry(janela_adicao)
+    raio_entry.grid(row=7, column=1)
+
+
+def salvar_info():
+    # Coleta as informações inseridas pelo usuário
+    nome = nome_entry.get()
+    x = x_entry.get()
+    y = y_entry.get()
+    massa = massa_entry.get()
+    vx = vx_entry.get()
+    vy = vy_entry.get()
+    cor = cor_entry.get()
+    raio = raio_entry.get()
+
+    # Formata as informações
+    info_formatada = f"nome: {nome} x: {x} y: {y} massa: {massa} vx: {vx} vy: {vy} cor: {cor} raio: {raio}\n"
+
+    # Salva as informações no arquivo input.data
+    with open("input.data", "a") as arquivo:
+        arquivo.write(info_formatada)
+
+    # Limpa os campos de entrada após salvar
+    nome_entry.delete(0, tk.END)
+    x_entry.delete(0, tk.END)
+    y_entry.delete(0, tk.END)
+    massa_entry.delete(0, tk.END)
+    vx_entry.delete(0, tk.END)
+    vy_entry.delete(0, tk.END)
+    cor_entry.delete(0, tk.END)
+    raio_entry.delete(0, tk.END)
+
+
+
+
+
+# Cria a janela principal
+janela = tk.Tk()
+janela.title("Inserir Informações dos Corpos Celestes")
+
+# Cria os rótulos e campos de entrada para as informações
+tk.Label(janela, text="Nome:").grid(row=0, column=0)
+nome_entry = tk.Entry(janela)
+nome_entry.grid(row=0, column=1)
+
+tk.Label(janela, text="X:").grid(row=1, column=0)
+x_entry = tk.Entry(janela)
+x_entry.grid(row=1, column=1)
+
+tk.Label(janela, text="Y:").grid(row=2, column=0)
+y_entry = tk.Entry(janela)
+y_entry.grid(row=2, column=1)
+
+tk.Label(janela, text="Massa:").grid(row=3, column=0)
+massa_entry = tk.Entry(janela)
+massa_entry.grid(row=3, column=1)
+
+tk.Label(janela, text="Velocidade X:").grid(row=4, column=0)
+vx_entry = tk.Entry(janela)
+vx_entry.grid(row=4, column=1)
+
+tk.Label(janela, text="Velocidade Y:").grid(row=5, column=0)
+vy_entry = tk.Entry(janela)
+vy_entry.grid(row=5, column=1)
+
+tk.Label(janela, text="Cor:").grid(row=6, column=0)
+cor_entry = tk.Entry(janela)
+cor_entry.grid(row=6, column=1)
+
+tk.Label(janela, text="Raio:").grid(row=7, column=0)
+raio_entry = tk.Entry(janela)
+raio_entry.grid(row=7, column=1)
+
+# Botão para salvar as informações
+botao_salvar = tk.Button(janela, text="Salvar", command=salvar_info)
+botao_salvar.grid(row=8, column=0, columnspan=2, pady=10)
+
+# Botão para limpar o arquivo
+botao_limpar = tk.Button(janela, text="Limpar Arquivo", command=limpar_arquivo)
+botao_limpar.grid(row=9, column=0, columnspan=2, pady=5)
+
+janela.mainloop()
+
 
 if __name__ == '__main__':
-    main()
+    mostrar_opcao_simulacao_pronta()
