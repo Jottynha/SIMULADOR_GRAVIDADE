@@ -294,6 +294,9 @@ def mostrar_opcao_simulacao_pronta():
             cor_entry.delete(0, tk.END)
             raio_entry.delete(0, tk.END)
 
+            # Mostra uma mensagem de confirmação
+            messagebox.showinfo("Sucesso", "As informações foram salvas, reinicie o programa!")
+
         # Botão para salvar as informações
         botao_salvar = tk.Button(janela, text="Salvar", command=salvar_info)
         botao_salvar.grid(row=8, column=0, columnspan=2, pady=10)
@@ -521,7 +524,7 @@ def adicionar_corpo():
         raio_entry.delete(0, tk.END)
 
         # Mostra uma mensagem de confirmação
-        messagebox.showinfo("Sucesso", "As informações foram salvas com sucesso!","Reinicie o Programa")
+        messagebox.showinfo("Sucesso", "As informações foram salvas, reinicie o programa!")
 
     # Labels
     tk.Label(window, text="Nome: ").grid(row=0, column=0)
