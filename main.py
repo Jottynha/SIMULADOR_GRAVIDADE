@@ -4,6 +4,7 @@ import re
 import tkinter as tk
 from threading import Thread
 from tkinter import messagebox
+from PIL import Image, ImageSequence
 
 from arrow import draw_arrow
 
@@ -223,10 +224,48 @@ def velArrow(win,const,arrow):
 
 def mostrar_opcao_simulacao_pronta():
     root = tk.Tk()
-    root.title("Opção de Simulação")
-    
-    label = tk.Label(root, text="Gostaria de utilizar uma simulação pronta?", font=("Helvetica", 14))
-    label.pack(pady=20)
+    root.title("Tela Inicial")
+    root.configure(bg="#cfe8fc")  # Define uma cor de fundo azul pastel mais leve
+
+    # Frame para o GIF à esquerda
+    frame_gif = tk.Frame(root, bg="#cfe8fc")
+    frame_gif.pack(side=tk.LEFT, padx=20, pady=20)
+
+    # Frame para as informações à direita
+    frame_info = tk.Frame(root, bg="#cfe8fc")
+    frame_info.pack(side=tk.RIGHT, padx=20, pady=20)
+
+    # Carrega o GIF animado
+    gif_path = "figuras/Sistema-Solar.gif"  # Substitua pelo caminho do seu arquivo GIF
+    gif = tk.PhotoImage(file=gif_path)
+
+    # Exibe o GIF em um rótulo
+    label_gif = tk.Label(root, image=gif, bg="#cfe8fc")
+    label_gif.pack(pady=10)
+
+
+    # Texto de boas-vindas e informações sobre os comandos do Pygame
+    boas_vindas = "\nBem-vindo à Simulação de Corpos Celestes!\n\n"
+    comandos_pygame = (
+        "\nComandos Pygame:\n\n" \
+        "Espaço: Pausar/Continuar\n" \
+        "Roda do Mouse: Zoom in e Zoom out\n" \
+        "Botão esquerdo do mouse: Exibir informações do corpo celestial\n" \
+        "Botão direito do mouse: Adicionar velocidade a um corpo celestial\n" \
+        "J: Adicionar novo corpo celestial\n" \
+        "I: Exibir informações dos corpos celestes\n" \
+        "S: Encerrar o programa\n" \
+        "ESC: Reiniciar a simulação\n"
+    )
+
+    # Estilo de texto mais moderno e fonte
+    fonte_boas_vindas = ("Arial", 16, "bold")
+    fonte_comandos = ("Arial", 12)
+    cor_texto = "#333333"  # Cor de texto mais escura para contraste
+
+    # Rótulo de boas-vindas
+    label_welcome = tk.Label(frame_info, text=boas_vindas + comandos_pygame, font=fonte_boas_vindas, fg=cor_texto, bg="#cfe8fc")
+    label_welcome.pack(pady=20, padx=20, anchor="w")
 
     def inserir():
         # Cria a janela principal
@@ -295,7 +334,7 @@ def mostrar_opcao_simulacao_pronta():
             raio_entry.delete(0, tk.END)
 
             # Mostra uma mensagem de confirmação
-            messagebox.showinfo("Sucesso", "As informações foram salvas, reinicie o programa!")
+            messagebox.showinfo("Sucesso", "As informações foram salvas, inicie o programa!")
 
         # Botão para salvar as informações
         botao_salvar = tk.Button(janela, text="Salvar", command=salvar_info)
@@ -328,11 +367,20 @@ def mostrar_opcao_simulacao_pronta():
         root.destroy()
         main(custom=False)
 
-    btn_custom = tk.Button(root, text="Sim", font=("Helvetica", 12), command=start_default_simulation)
-    btn_custom.pack(pady=10)
+    # Frame para a pergunta e os botões
+    frame_pergunta_botoes = tk.Frame(frame_info, bg="#cfe8fc")
+    frame_pergunta_botoes.pack(pady=(0, 10))
 
-    btn_default = tk.Button(root, text="Não", font=("Helvetica", 12), command=start_custom_simulation)
-    btn_default.pack(pady=10)
+    # Rótulo da pergunta
+    label_pergunta = tk.Label(frame_pergunta_botoes, text="Gostaria de utilizar uma simulação pronta?", font=("Arial", 14), fg=cor_texto, bg="#cfe8fc")
+    label_pergunta.pack(pady=(0, 10), padx=20)
+
+    # Botões dentro do frame de perguntas e botões
+    btn_sim = tk.Button(frame_pergunta_botoes, text="Sim", font=("Helvetica", 12), command=start_default_simulation)
+    btn_sim.pack()
+
+    btn_nao = tk.Button(frame_pergunta_botoes, text="Não", font=("Helvetica", 12), command=start_custom_simulation)
+    btn_nao.pack()
 
     root.mainloop()    
 
@@ -374,6 +422,8 @@ def main(custom=False):
                     arrows = []
                     const.pause()
                 # reseta ao apertar ESC
+                if event.key == pygame.K_s:
+                    pygame.quit()
                 elif event.key == pygame.K_ESCAPE:
                     bodies = bodiesInit(custom)
                     const.SCALE = 250 / AU
@@ -470,13 +520,13 @@ def mostrar_informacoes_gui(bodies):
     # Adicionando informações sobre os comandos do Pygame
     pygame_info_text = "\nComandos Pygame:\n\n" \
                        "Espaço: Pausar/Continuar\n" \
-                       "Seta para cima: Zoom in\n" \
-                       "Seta para baixo: Zoom out\n" \
+                       "Roda do Mouse: Zoom in e Zoom out\n" \
                        "Botão esquerdo do mouse: Exibir informações do corpo celestial\n" \
                        "Botão direito do mouse: Adicionar velocidade a um corpo celestial\n" \
                        "J: Adicionar novo corpo celestial\n" \
                        "I: Exibir informações dos corpos celestes\n" \
-                       "ESC: Reiniciar o programa\n"
+                       "S: Encerrar o programa\n" \
+                       "ESC: Reiniciar a simulação\n"
     tk.Label(body_frame, text=pygame_info_text, font=("Helvetica", 12), fg=text_color, bg=bg_color).pack(anchor="center", pady=3)
 
     # Função para destruir a janela quando uma tecla é pressionada
