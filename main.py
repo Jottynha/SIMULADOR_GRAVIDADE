@@ -2,9 +2,9 @@ import pygame
 import math
 import re
 import tkinter as tk
-from threading import Thread
+import threading
 from tkinter import messagebox
-from PIL import Image, ImageSequence
+from math import sqrt
 
 from arrow import draw_arrow
 
@@ -25,7 +25,7 @@ class Body:
     def print(self):
         print("\t------ {} ------".format(self.name))
         print("Velocidade x: {} m/s".format(self.vx))
-        print("Velocidade y: {} ms/s".format(self.vy))
+        print("Velocidade y: {} m/s".format(self.vy))
         print("Massa : {} kg".format(self.mass))
 
     #Função que guarda as informações do corpo planetário
@@ -251,11 +251,13 @@ def mostrar_opcao_simulacao_pronta():
         "Espaço: Pausar/Continuar\n" \
         "Roda do Mouse: Zoom in e Zoom out\n" \
         "Botão esquerdo do mouse: Exibir informações do corpo celestial\n" \
-        "Botão direito do mouse: Adicionar velocidade a um corpo celestial\n" \
+        "Botão direito do mouse: Exibir as distâncias do corpo aos demais\n" \
         "J: Adicionar novo corpo celestial\n" \
         "I: Exibir informações dos corpos celestes\n" \
         "S: Encerrar o programa\n" \
-        "ESC: Reiniciar a simulação\n"
+        "ESC: Reiniciar a simulação\n" \
+        "Para saber informações específicas, clique no planeta desejado\n" \
+        "(aconselhamos a pausar a simulação quando essa operação for desejada)"
     )
 
     # Estilo de texto mais moderno e fonte
@@ -365,6 +367,8 @@ def mostrar_opcao_simulacao_pronta():
 
     def start_default_simulation():
         root.destroy()
+         # Mostrar uma mensagem de simulação pronta
+        messagebox.showinfo("Simulação Pronta", "Essa é uma simulação do Sistema Solar, considerando os planetas de Mercúrio até Saturno.")
         main(custom=False)
 
     # Frame para a pergunta e os botões
@@ -401,6 +405,17 @@ def main(custom=False):
     dragged = False
     run = True
     arrows = []
+
+    #Função para reiniciar o programa
+    def reiniciar_programa():
+        pygame.quit()  # Fecha o Pygame
+        mostrar_opcao_simulacao_pronta()  # Mostra a opção de simulação novamente
+
+    # Botão para reiniciar o programa
+    btn_reiniciar = pygame.Rect(8, 8, 240, 40)  # Posição e tamanho do botão
+    font = pygame.font.SysFont(None, 30)  # Fonte do texto do botão
+    text = font.render("Reiniciar o Programa", True, (255, 255, 255))  # Texto do botão
+
 
     while run:
         # Roda 60 vezes por segundo
@@ -445,23 +460,35 @@ def main(custom=False):
                             dragged = True
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                # Zoom in
+                # Verifica se o botão de reiniciar foi clicado
+                if btn_reiniciar.collidepoint(event.pos):
+                    reiniciar_programa()
                 if event.button == 5:
-                    const.addZoom(1,bodies)
-
-                # Zoom out
+                    const.addZoom(1, bodies)
                 elif event.button == 4:
-                    const.addZoom(0,bodies)
-
-                # printa as informação quando o corpo é cliclado
-                elif event.button == 1:
+                    const.addZoom(0, bodies)
+                elif event.button == 1:  # Botão esquerdo do mouse
                     for body in bodies:
-                        x = body.x * const.SCALE + WIDTH /2
-                        y = body.y * const.SCALE + HEIGHT /2
-                        if(checkCollision(x,y,body.radius/const.ZOOM,event.pos[0],event.pos[1],1)):
-                            body.print()
-                            # Seleciona o corpo cliclado
-                            mouseMotion = [x,y,body]
+                        x = body.x * const.SCALE + WIDTH / 2
+                        y = body.y * const.SCALE + HEIGHT / 2
+                        if checkCollision(x, y, body.radius / const.ZOOM, event.pos[0], event.pos[1], 1):
+                            mostrar_informacoes_planeta(body.name, body.storage())
+                elif event.button == 3:  # Botão direito do mouse
+                    for body in bodies:
+                        x = body.x * const.SCALE + WIDTH / 2
+                        y = body.y * const.SCALE + HEIGHT / 2
+                        if checkCollision(x, y, body.radius / const.ZOOM, event.pos[0], event.pos[1], 1):
+                            # Encontra o corpo celeste clicado
+                            clicked_body = body
+                            # Calcula a distância entre o corpo clicado e os outros corpos celestes
+                            distances = {other_body.name: calcular_distancia(clicked_body, other_body, const) for other_body in bodies if other_body != clicked_body}
+                            # Mostra a distância em uma caixa de mensagem
+                            message = "\n".join([f"{name}: {distance:.2f} AU" for name, distance in distances.items()])
+                            messagebox.showinfo(title="Distâncias", message=message)
+
+        pygame.draw.rect(win, (0, 255, 0), btn_reiniciar)  # Cor do botão
+        win.blit(text, (btn_reiniciar.x + 25, btn_reiniciar.y + 10))  # Posição do texto do botão
+
 
         # Desenha as setas
         for arrow in arrows:
@@ -483,6 +510,12 @@ def main(custom=False):
     pygame.quit()
 
 
+def calcular_distancia(body1, body2, const):
+    distance_x = body2.x - body1.x
+    distance_y = body2.y - body1.y
+    distance = math.sqrt(distance_x ** 2 + distance_y ** 2)
+    return distance / const.SCALE  # Converta para unidades astronômicas (AU)
+
 
 #Coleta as informações no dicionário
 def coletar_informacoes(bodies):
@@ -491,6 +524,13 @@ def coletar_informacoes(bodies):
         info = body.storage()
         todas_infos.append(info)
     return todas_infos
+
+def mostrar_informacoes_planeta(nome, info):
+    # Formata as informações do planeta
+    info_text = "\n".join([f"{key}: {value}" for key, value in info.items()])
+    # Exibe as informações em uma messagebox sem botão "OK"
+    messagebox.showinfo(title=nome, message=info_text, parent=None)
+
 
 def mostrar_informacoes_gui(bodies):
     infos = coletar_informacoes(bodies)
@@ -514,19 +554,21 @@ def mostrar_informacoes_gui(bodies):
     
     # Adicionando informações dos corpos celestes
     for info in infos:
-        info_text = f"Nome: {info['Nome']}, Velocidade X: {info['Velocidade X (m/s)']}, Velocidade Y: {info['Velocidade Y (m/s)']}, Massa: {info['Massa (kg)']}"
+        # Calcula a velocidade total
+        velocidade_total = sqrt(info['Velocidade X (m/s)'] ** 2 + info['Velocidade Y (m/s)'] ** 2)
+        info_text = f"Nome: {info['Nome']}, Velocidade Total: {velocidade_total:.2f} m/s, Massa: {info['Massa (kg)']}"
         tk.Label(body_frame, text=info_text, font=("Helvetica", 12), fg=text_color, bg=bg_color).pack(anchor="w", pady=3)
-    
     # Adicionando informações sobre os comandos do Pygame
     pygame_info_text = "\nComandos Pygame:\n\n" \
                        "Espaço: Pausar/Continuar\n" \
-                       "Roda do Mouse: Zoom in e Zoom out\n" \
+                       "Scroll do Mouse: Zoom in e Zoom out\n" \
                        "Botão esquerdo do mouse: Exibir informações do corpo celestial\n" \
-                       "Botão direito do mouse: Adicionar velocidade a um corpo celestial\n" \
+                       "Botão direito do mouse: Exibir as distâncias do corpo aos demais\n" \
                        "J: Adicionar novo corpo celestial\n" \
                        "I: Exibir informações dos corpos celestes\n" \
                        "S: Encerrar o programa\n" \
-                       "ESC: Reiniciar a simulação\n"
+                       "ESC: Reiniciar a simulação\n" \
+                       "Para saber informações específicas, clique no planeta desejado (aconselhamos a pausar a simulação quando essa operação for desejada) "
     tk.Label(body_frame, text=pygame_info_text, font=("Helvetica", 12), fg=text_color, bg=bg_color).pack(anchor="center", pady=3)
 
     # Função para destruir a janela quando uma tecla é pressionada
