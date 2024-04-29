@@ -8,6 +8,84 @@ from math import sqrt
 
 from arrow import draw_arrow
 
+cores_portugues_ingles = {
+    "azul": "blue",
+    "verde": "green",
+    "vermelho": "red",
+    "amarelo": "yellow",
+    "roxo": "purple",
+    "rosa": "pink",
+    "laranja": "orange",
+    "branco": "white",
+    "preto": "black",
+    "cinza": "gray",
+    "marrom": "brown",
+    "ciano": "cyan",
+    "magenta": "magenta",
+    "prata": "silver",
+    "ouro": "gold",
+    "bege": "beige",
+    "turquesa": "turquoise",
+    "lima": "lime",
+    "salmão": "salmon",
+    "índigo": "indigo",
+    "vermelho escuro": "darkred",
+    "verde escuro": "darkgreen",
+    "azul escuro": "darkblue",
+    "violeta escuro": "darkviolet",
+    "amarelo escuro": "darkyellow",
+    "marrom escuro": "darkbrown",
+    "cinza escuro": "darkgray",
+    "vermelho claro": "lightred",
+    "verde claro": "lightgreen",
+    "azul claro": "lightblue",
+    "violeta claro": "lightviolet",
+    "amarelo claro": "lightyellow",
+    "marrom claro": "lightbrown",
+    "cinza claro": "lightgray",
+    "vermelho rosado": "rosybrown",
+    "azul celeste": "skyblue",
+    "verde marinho": "seagreen",
+    "amarelo dourado": "goldenrod",
+    "rosa claro": "lightpink",
+    "azul marinho": "navy",
+    "amarelo ouro": "golden",
+    "azul aço": "steelblue",
+    "verde oliva": "olive",
+    "azul ardósia": "slateblue",
+    "verde limão": "limegreen",
+    "rosa profundo": "deeppink",
+    "azul profundo": "deepskyblue",
+    "verde floresta": "forestgreen",
+    "azul marinho": "midnightblue",
+    "rosa quente": "hotpink",
+    "azul médio": "mediumblue",
+    "verde médio": "mediumseagreen",
+    "amarelo médio": "mediumyellow",
+    "azul médio": "mediumblue",
+    "verde musgo": "darkolivegreen",
+    "azul ardósia": "slateblue",
+    "turquesa pálida": "palegreen",
+    "verde primavera": "springgreen",
+    "azul aço claro": "lightsteelblue",
+    "verde marinho claro": "lightseagreen",
+    "azul ardósia claro": "lightslategray",
+    "azul ardósia pálido": "lightblue",
+    "verde primavera médio": "mediumspringgreen",
+    "azul pálido": "paleblue",
+    "azul ardósia pálido": "lightslateblue",
+    "azul ardósia pálido": "lightskyblue",
+    "azul ardósia pálido": "lightslateblue",
+    "azul ardósia pálido": "lightskyblue",
+    "azul ardósia pálido": "lightslateblue",
+    "azul ardósia pálido": "lightskyblue",
+    "azul ardósia pálido": "lightslateblue",
+    "azul ardósia pálido": "lightskyblue",
+    "azul ardósia pálido": "lightslateblue",
+}
+
+
+
 
 class Body:
     def __init__(self, x, y, vx, vy, mass, color, radius,name):
@@ -38,21 +116,25 @@ class Body:
         }
         return info_planeta
     
+    def aumentar_velocidade(self):
+        # Aumenta a velocidade do corpo em uma certa porcentagem
+        self.vx *= 1.1
+        self.vy *= 1.1
 
-
-    def draw(self, win,ZOOM,SCALE):
+    def draw(self, win, ZOOM, SCALE):
         x = self.x * SCALE + WIDTH / 2
         y = self.y * SCALE + HEIGHT / 2
 
         if len(self.trace) > 2:
             traceLine = []
             for point in self.trace:
-                x,y = point
+                x, y = point
                 x = x * SCALE + WIDTH / 2
                 y = y * SCALE + HEIGHT / 2
-                traceLine.append((x,y))
+                traceLine.append((x, y))
             pygame.draw.lines(win, self.color, False, traceLine, 2)
 
+        # Desenhar o corpo celeste
         pygame.draw.circle(win, self.color, (x, y), self.radius / ZOOM)
 
     def attraction(self, other):
@@ -249,11 +331,12 @@ def mostrar_opcao_simulacao_pronta():
     comandos_pygame = (
         "\nComandos Pygame:\n\n" \
         "Espaço: Pausar/Continuar\n" \
-        "Roda do Mouse: Zoom in e Zoom out\n" \
+        "Scroll do Mouse: Zoom in e Zoom out\n" \
         "Botão esquerdo do mouse: Exibir informações do corpo celestial\n" \
         "Botão direito do mouse: Exibir as distâncias do corpo aos demais\n" \
         "J: Adicionar novo corpo celestial\n" \
         "I: Exibir informações dos corpos celestes\n" \
+        "V: Aumenta a velocidade do corpo selecionado com o Botão Esquerdo\n" \
         "S: Encerrar o programa\n" \
         "ESC: Reiniciar a simulação\n" \
         "Para saber informações específicas, clique no planeta desejado\n" \
@@ -269,100 +352,9 @@ def mostrar_opcao_simulacao_pronta():
     label_welcome = tk.Label(frame_info, text=boas_vindas + comandos_pygame, font=fonte_boas_vindas, fg=cor_texto, bg="#cfe8fc")
     label_welcome.pack(pady=20, padx=20, anchor="w")
 
-    def inserir():
-        # Cria a janela principal
-        janela = tk.Tk()
-        janela.title("Inserir Informações dos Corpos Celestes")
-
-        # Cria os rótulos e campos de entrada para as informações
-        tk.Label(janela, text="Nome:").grid(row=0, column=0)
-        nome_entry = tk.Entry(janela)
-        nome_entry.grid(row=0, column=1)
-
-        tk.Label(janela, text="X:").grid(row=1, column=0)
-        x_entry = tk.Entry(janela)
-        x_entry.grid(row=1, column=1)
-
-        tk.Label(janela, text="Y:").grid(row=2, column=0)
-        y_entry = tk.Entry(janela)
-        y_entry.grid(row=2, column=1)
-
-        tk.Label(janela, text="Massa:").grid(row=3, column=0)
-        massa_entry = tk.Entry(janela)
-        massa_entry.grid(row=3, column=1)
-
-        tk.Label(janela, text="Velocidade X:").grid(row=4, column=0)
-        vx_entry = tk.Entry(janela)
-        vx_entry.grid(row=4, column=1)
-
-        tk.Label(janela, text="Velocidade Y:").grid(row=5, column=0)
-        vy_entry = tk.Entry(janela)
-        vy_entry.grid(row=5, column=1)
-
-        tk.Label(janela, text="Cor:").grid(row=6, column=0)
-        cor_entry = tk.Entry(janela)
-        cor_entry.grid(row=6, column=1)
-
-        tk.Label(janela, text="Raio:").grid(row=7, column=0)
-        raio_entry = tk.Entry(janela)
-        raio_entry.grid(row=7, column=1)
-
-        def salvar_info():
-            # Coleta as informações inseridas pelo usuário
-            nome = nome_entry.get()
-            x = x_entry.get()
-            y = y_entry.get()
-            massa = massa_entry.get()
-            vx = vx_entry.get()
-            vy = vy_entry.get()
-            cor = cor_entry.get()
-            raio = raio_entry.get()
-
-            # Formata as informações
-            info_formatada = f"nome: {nome} x: {x} y: {y} massa: {massa} vx: {vx} vy: {vy} cor: {cor} raio: {raio}\n"
-
-            # Salva as informações no arquivo input.data
-            with open("input.data", "a") as arquivo:
-                arquivo.write(info_formatada)
-
-            # Limpa os campos de entrada após salvar
-            nome_entry.delete(0, tk.END)
-            x_entry.delete(0, tk.END)
-            y_entry.delete(0, tk.END)
-            massa_entry.delete(0, tk.END)
-            vx_entry.delete(0, tk.END)
-            vy_entry.delete(0, tk.END)
-            cor_entry.delete(0, tk.END)
-            raio_entry.delete(0, tk.END)
-
-            # Mostra uma mensagem de confirmação
-            messagebox.showinfo("Sucesso", "As informações foram salvas, inicie o programa!")
-
-        # Botão para salvar as informações
-        botao_salvar = tk.Button(janela, text="Salvar", command=salvar_info)
-        botao_salvar.grid(row=8, column=0, columnspan=2, pady=10)
-
-        def limpar_arquivo():
-            # Confirmação do usuário
-            resposta = messagebox.askquestion("Limpar Arquivo", "Tem certeza que deseja limpar o arquivo? Todas as informações serão perdidas.")
-
-            if resposta == "yes":
-                # Limpa o arquivo
-                open('input.data', 'w').close()
-                messagebox.showinfo("Limpar Arquivo", "Arquivo limpo com sucesso.")
-            else:
-                return
-
-        # Botão para limpar o arquivo
-        botao_limpar = tk.Button(janela, text="Limpar Arquivo", command=limpar_arquivo)
-        botao_limpar.grid(row=9, column=0, columnspan=2, pady=5)
-
-        janela.mainloop()
-
-
     def start_custom_simulation():
         root.destroy()
-        inserir()
+        adicionar_corpo()
         main(custom=True)
 
     def start_default_simulation():
@@ -388,8 +380,10 @@ def mostrar_opcao_simulacao_pronta():
 
     root.mainloop()    
 
-def main(custom=False):
+selected_body = None  # Inicializa selected_body
 
+def main(custom=False):
+    global selected_body
     pygame.init()
     const = gVar()
 
@@ -442,6 +436,10 @@ def main(custom=False):
                 elif event.key == pygame.K_ESCAPE:
                     bodies = bodiesInit(custom)
                     const.SCALE = 250 / AU
+                if event.key == pygame.K_v:  # Aumentar a velocidade do corpo selecionado
+                    if selected_body is not None:
+                        selected_body.aumentar_velocidade()  # Aqui você chama o método que aumenta a velocidade do corpo celeste selecionado
+
 
             elif event.type == pygame.MOUSEBUTTONUP:
                 if const.PAUSE:
@@ -473,6 +471,8 @@ def main(custom=False):
                         y = body.y * const.SCALE + HEIGHT / 2
                         if checkCollision(x, y, body.radius / const.ZOOM, event.pos[0], event.pos[1], 1):
                             mostrar_informacoes_planeta(body.name, body.storage())
+                            # Se o corpo celeste foi clicado
+                            selected_body = body
                 elif event.button == 3:  # Botão direito do mouse
                     for body in bodies:
                         x = body.x * const.SCALE + WIDTH / 2
@@ -566,6 +566,7 @@ def mostrar_informacoes_gui(bodies):
                        "Botão direito do mouse: Exibir as distâncias do corpo aos demais\n" \
                        "J: Adicionar novo corpo celestial\n" \
                        "I: Exibir informações dos corpos celestes\n" \
+                       "V: Aumenta a velocidade do corpo selecionado com o Botão Esquerdo\n" \
                        "S: Encerrar o programa\n" \
                        "ESC: Reiniciar a simulação\n" \
                        "Para saber informações específicas, clique no planeta desejado (aconselhamos a pausar a simulação quando essa operação for desejada) "
@@ -587,6 +588,16 @@ def adicionar_corpo():
     window = tk.Tk()  # Cria uma nova janela
     window.title("Adicionar Corpo Celeste")
 
+    def on_entry_click(event, entry):
+        if entry.cget("fg") == "gray":
+            entry.delete(0, tk.END)
+            entry.config(fg="black")
+
+    def on_focusout(event, entry, default_text):
+        if entry.get() == "":
+            entry.insert(0, default_text)
+            entry.config(fg="gray")
+
     def salvar_info():
         # Coleta as informações inseridas pelo usuário
         nome = nome_entry.get()
@@ -597,6 +608,11 @@ def adicionar_corpo():
         vy = vy_entry.get()
         cor = cor_entry.get()
         raio = raio_entry.get()
+        
+        cor = cor_entry.get().lower()  # Converta para minúsculas para facilitar a comparação
+        if cor in cores_portugues_ingles:
+            cor = cores_portugues_ingles[cor]  # Use o equivalente em inglês
+
 
         # Formata as informações
         info_formatada = f"nome: {nome} x: {x} y: {y} massa: {massa} vx: {vx} vy: {vy} cor: {cor} raio: {raio}\n"
@@ -616,39 +632,103 @@ def adicionar_corpo():
         raio_entry.delete(0, tk.END)
 
         # Mostra uma mensagem de confirmação
-        messagebox.showinfo("Sucesso", "As informações foram salvas, reinicie o programa!")
+        messagebox.showinfo("Sucesso", "As informações foram salvas, reinicie o programa pressionando ESC para iniciar a simulação!")
 
     # Labels
-    tk.Label(window, text="Nome: ").grid(row=0, column=0)
-    tk.Label(window, text="X: ").grid(row=1, column=0)
-    tk.Label(window, text="Y: ").grid(row=2, column=0)
-    tk.Label(window, text="Massa: ").grid(row=3, column=0)
-    tk.Label(window, text="Velocidade X: ").grid(row=4, column=0)
-    tk.Label(window, text="Velocidade Y: ").grid(row=5, column=0)
+    tk.Label(window, text="Nome do Corpo: ").grid(row=0, column=0)
+    tk.Label(window, text="Posição em X: ").grid(row=1, column=0)
+    tk.Label(window, text="Posição em Y: ").grid(row=2, column=0)
+    tk.Label(window, text="Massa (kg): ").grid(row=3, column=0)
+    tk.Label(window, text="Velocidade X (m/s): ").grid(row=4, column=0)
+    tk.Label(window, text="Velocidade Y (m/s): ").grid(row=5, column=0)
     tk.Label(window, text="Cor: ").grid(row=6, column=0)
-    tk.Label(window, text="Raio: ").grid(row=7, column=0)
+    tk.Label(window, text="Raio (m): ").grid(row=7, column=0)
 
-    # Campos de entrada
+    # Campos de entrada com sugestões visuais
+    default_texts = [
+        "Insira o nome do corpo celeste",
+        "Insira a posição X",
+        "Insira a posição Y",
+        "1*E+x para 1*10^x",
+        "Insira a velocidade X",
+        "Insira a velocidade Y",
+        "Em português",
+        "Insira o raio"
+    ]
+
     nome_entry = tk.Entry(window)
     nome_entry.grid(row=0, column=1)
+    nome_entry.insert(tk.END, default_texts[0])
+    nome_entry.config(fg="gray")
+    nome_entry.bind("<FocusIn>", lambda event, entry=nome_entry: on_entry_click(event, entry))
+    nome_entry.bind("<FocusOut>", lambda event, entry=nome_entry, default_text=default_texts[0]: on_focusout(event, entry, default_text))
+
     x_entry = tk.Entry(window)
     x_entry.grid(row=1, column=1)
+    x_entry.insert(tk.END, default_texts[1])
+    x_entry.config(fg="gray")
+    x_entry.bind("<FocusIn>", lambda event, entry=x_entry: on_entry_click(event, entry))
+    x_entry.bind("<FocusOut>", lambda event, entry=x_entry, default_text=default_texts[1]: on_focusout(event, entry, default_text))
+
     y_entry = tk.Entry(window)
     y_entry.grid(row=2, column=1)
+    y_entry.insert(tk.END, default_texts[2])
+    y_entry.config(fg="gray")
+    y_entry.bind("<FocusIn>", lambda event, entry=y_entry: on_entry_click(event, entry))
+    y_entry.bind("<FocusOut>", lambda event, entry=y_entry, default_text=default_texts[2]: on_focusout(event, entry, default_text))
+
     massa_entry = tk.Entry(window)
     massa_entry.grid(row=3, column=1)
+    massa_entry.insert(tk.END, default_texts[3])
+    massa_entry.config(fg="gray")
+    massa_entry.bind("<FocusIn>", lambda event, entry=massa_entry: on_entry_click(event, entry))
+    massa_entry.bind("<FocusOut>", lambda event, entry=massa_entry, default_text=default_texts[3]: on_focusout(event, entry, default_text))
+
     vx_entry = tk.Entry(window)
     vx_entry.grid(row=4, column=1)
+    vx_entry.insert(tk.END, default_texts[4])
+    vx_entry.config(fg="gray")
+    vx_entry.bind("<FocusIn>", lambda event, entry=vx_entry: on_entry_click(event, entry))
+    vx_entry.bind("<FocusOut>", lambda event, entry=vx_entry, default_text=default_texts[4]: on_focusout(event, entry, default_text))
+
     vy_entry = tk.Entry(window)
     vy_entry.grid(row=5, column=1)
+    vy_entry.insert(tk.END, default_texts[5])
+    vy_entry.config(fg="gray")
+    vy_entry.bind("<FocusIn>", lambda event, entry=vy_entry: on_entry_click(event, entry))
+    vy_entry.bind("<FocusOut>", lambda event, entry=vy_entry, default_text=default_texts[5]: on_focusout(event, entry, default_text))
+
     cor_entry = tk.Entry(window)
     cor_entry.grid(row=6, column=1)
+    cor_entry.insert(tk.END, default_texts[6])
+    cor_entry.config(fg="gray")
+    cor_entry.bind("<FocusIn>", lambda event, entry=cor_entry: on_entry_click(event, entry))
+    cor_entry.bind("<FocusOut>", lambda event, entry=cor_entry, default_text=default_texts[6]: on_focusout(event, entry, default_text))
+
     raio_entry = tk.Entry(window)
     raio_entry.grid(row=7, column=1)
+    raio_entry.insert(tk.END, default_texts[7])
+    raio_entry.config(fg="gray")
+    raio_entry.bind("<FocusIn>", lambda event, entry=raio_entry: on_entry_click(event, entry))
+    raio_entry.bind("<FocusOut>", lambda event, entry=raio_entry, default_text=default_texts[7]: on_focusout(event, entry, default_text))
 
     # Botão para salvar as informações
     botao_salvar = tk.Button(window, text="Salvar", command=salvar_info)
     botao_salvar.grid(row=8, column=0, columnspan=2, pady=10)
+
+    def limpar_arquivo():
+            # Confirmação do usuário
+            resposta = messagebox.askquestion("Limpar Arquivo", "Tem certeza que deseja limpar o arquivo? Todas as informações serão perdidas.")
+
+            if resposta == "yes":
+                # Limpa o arquivo
+                open('input.data', 'w').close()
+                messagebox.showinfo("Limpar Arquivo", "Arquivo limpo com sucesso.")
+            else:
+                return
+    # Botão para limpar o arquivo
+    botao_limpar = tk.Button(window, text="Limpar Arquivo", command=limpar_arquivo)
+    botao_limpar.grid(row=9, column=0, columnspan=2, pady=5)
 
     window.mainloop()  # Executa a janela
 
