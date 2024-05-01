@@ -1,2 +1,2 @@
-nome: Novo x: 1 y: 1 massa: 100 vx: 1 vy: 1 cor: blue raio: 100
-nome: B x: 1 y: 1 massa: 1 vx: 1 vy: 1 cor: white raio: 1
+nome: Sol x: 0.0 y: 0.0 massa: 1.98892e31 vx: 0 vy: 0 cor: gold raio: 50
+nome: Terra x: -1.0 y: 0.0 massa: 5.9742e24 vx: 0 vy: 0 cor: aquamarine2 raio: 10

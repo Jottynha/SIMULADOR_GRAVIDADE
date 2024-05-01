@@ -2,11 +2,13 @@ import pygame
 import math
 import re
 import tkinter as tk
-import threading
 from tkinter import messagebox
 from math import sqrt
+from tkinter.simpledialog import askfloat
 
 from arrow import draw_arrow
+
+simulacao_ativa = False
 
 cores_portugues_ingles = {
     "azul": "blue",
@@ -383,6 +385,8 @@ def mostrar_opcao_simulacao_pronta():
 selected_body = None  # Inicializa selected_body
 
 def main(custom=False):
+    global simulacao_ativa
+    simulacao_ativa = True
     global selected_body
     pygame.init()
     const = gVar()
@@ -636,8 +640,8 @@ def adicionar_corpo():
 
     # Labels
     tk.Label(window, text="Nome do Corpo: ").grid(row=0, column=0)
-    tk.Label(window, text="Posição em X: ").grid(row=1, column=0)
-    tk.Label(window, text="Posição em Y: ").grid(row=2, column=0)
+    tk.Label(window, text="Posição em X (AU): ").grid(row=1, column=0)
+    tk.Label(window, text="Posição em Y (AU): ").grid(row=2, column=0)
     tk.Label(window, text="Massa (kg): ").grid(row=3, column=0)
     tk.Label(window, text="Velocidade X (m/s): ").grid(row=4, column=0)
     tk.Label(window, text="Velocidade Y (m/s): ").grid(row=5, column=0)
@@ -649,7 +653,7 @@ def adicionar_corpo():
         "Insira o nome do corpo celeste",
         "Insira a posição X",
         "Insira a posição Y",
-        "1*E+x para 1*10^x",
+        "10*ex para 1*10^x",
         "Insira a velocidade X",
         "Insira a velocidade Y",
         "Em português",
@@ -711,7 +715,7 @@ def adicionar_corpo():
     raio_entry.config(fg="gray")
     raio_entry.bind("<FocusIn>", lambda event, entry=raio_entry: on_entry_click(event, entry))
     raio_entry.bind("<FocusOut>", lambda event, entry=raio_entry, default_text=default_texts[7]: on_focusout(event, entry, default_text))
-
+    
     # Botão para salvar as informações
     botao_salvar = tk.Button(window, text="Salvar", command=salvar_info)
     botao_salvar.grid(row=8, column=0, columnspan=2, pady=10)
@@ -729,6 +733,83 @@ def adicionar_corpo():
     # Botão para limpar o arquivo
     botao_limpar = tk.Button(window, text="Limpar Arquivo", command=limpar_arquivo)
     botao_limpar.grid(row=9, column=0, columnspan=2, pady=5)
+
+    def exibir_informacoes():
+        # Cria uma nova janela
+        info_window = tk.Toplevel()
+        info_window.title("Informações Adicionadas")
+
+        # Cria um widget de texto para exibir as informações
+        info_text = tk.Text(info_window)
+        info_text.pack()
+
+        # Abre o arquivo input.data e exibe suas informações
+        try:
+            with open("input.data", "r") as arquivo:
+                info_text.insert(tk.END, arquivo.read())
+        except FileNotFoundError:
+            info_text.insert(tk.END, "Nenhuma informação adicionada ainda.")
+
+    botao_exibir_info = tk.Button(window, text="Exibir Informações", command=exibir_informacoes)
+    botao_exibir_info.grid(row=10, column=0, columnspan=2, pady=5)
+
+    def adicionar_planeta(nome, massa, cor, raio):
+        # Solicita ao usuário para inserir as posições x e y como inteiros
+        x = askfloat(f"Posição X do {nome}", f"Insira a posição X do {nome} (AU):")
+        y = askfloat(f"Posição Y do {nome}", f"Insira a posição Y do {nome} (AU):")
+
+        if x is not None and y is not None:
+            # Formata a massa como uma string com notação científica
+            massa_str = str(massa)
+            # Adiciona informações do planeta ao arquivo
+            with open("input.data", "a") as arquivo:
+                arquivo.write(f"nome: {nome} x: {x} y: {y} massa: {massa_str} vx: 0 vy: 0 cor: {cor} raio: {raio}\n")
+            messagebox.showinfo("Sucesso", f"{nome} adicionado com sucesso!")
+
+    def adicionar_sol():
+        adicionar_planeta("Sol","1.98892e31","gold",50)
+
+    def adicionar_terra():
+        adicionar_planeta("Terra", "5.9742e24" , "aquamarine2", 10)
+
+    def adicionar_marte():
+        adicionar_planeta("Marte", "6.39e23", "brown3", 10)
+
+    def adicionar_mercurio():
+        adicionar_planeta("Mercúrio", "3.30*10e23", "darkgray", 10)
+
+    def adicionar_venus():
+        adicionar_planeta("Vênus", "4.8685*10e24", "darkorange3", 10)
+
+    def adicionar_saturno():
+        adicionar_planeta("Saturno", "5.683*10e26" , "antiquewhite1", 15)
+
+
+    botao_adicionar_sol = tk.Button(window, text="Adicionar Sol", command=adicionar_sol)
+    botao_adicionar_sol.grid(row=11, column=0, pady=5)
+
+    botao_adicionar_terra = tk.Button(window, text="Adicionar Terra", command=adicionar_terra)
+    botao_adicionar_terra.grid(row=11, column=1, pady=5)
+
+    botao_adicionar_marte = tk.Button(window, text="Adicionar Marte", command=adicionar_marte)
+    botao_adicionar_marte.grid(row=12, column=0, pady=5)
+
+    botao_adicionar_mercurio = tk.Button(window, text="Adicionar Mercúrio", command=adicionar_mercurio)
+    botao_adicionar_mercurio.grid(row=12, column=1, pady=5)
+
+    botao_adicionar_venus = tk.Button(window, text="Adicionar Vênus", command=adicionar_venus)
+    botao_adicionar_venus.grid(row=13, column=0, pady=5)
+
+    botao_adicionar_saturno = tk.Button(window, text="Adicionar Saturno", command=adicionar_saturno)
+    botao_adicionar_saturno.grid(row=13, column=1, pady=5)
+
+    def iniciar_simulacao():
+        window.destroy()    
+        if simulacao_ativa:
+            messagebox.showinfo("Sucesso", "Reinicie a Simulação com a tecla ESC.")
+
+    botao_reiniciar_simulacao = tk.Button(window, text="Iniciar Simulação", command=iniciar_simulacao)
+    botao_reiniciar_simulacao.grid(row=14, column=0, columnspan=2, pady=5)
 
     window.mainloop()  # Executa a janela
 
