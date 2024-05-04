@@ -10,6 +10,7 @@ from arrow import draw_arrow
 
 simulacao_ativa = False
 
+
 cores_portugues_ingles = {
     "azul": "blue",
     "verde": "green",
@@ -104,20 +105,20 @@ class Body:
 
     def print(self):
         print("\t------ {} ------".format(self.name))
-        print("Velocidade x: {} m/s".format(self.vx))
-        print("Velocidade y: {} m/s".format(self.vy))
-        print("Massa : {} kg".format(self.mass))
+        print("Velocidade x: {:.2e} m/s".format(self.vx))
+        print("Velocidade y: {:.2e} m/s".format(self.vy))
+        print("Massa: {:.2e} kg".format(self.mass))
 
-    #Função que guarda as informações do corpo planetário
+    # Função que guarda as informações do corpo planetário
     def storage(self):
         info_planeta = {
             'Nome': self.name,
-            'Velocidade X (m/s)': self.vx,
-            'Velocidade Y (m/s)': self.vy,
-            'Massa (kg)': self.mass
+            'Velocidade X (m/s)': format(self.vx, '.2e'),
+            'Velocidade Y (m/s)': format(self.vy, '.2e'),
+            'Massa (kg)': format(self.mass, '.2e')
         }
         return info_planeta
-    
+        
     def aumentar_velocidade(self):
         # Aumenta a velocidade do corpo em uma certa porcentagem
         self.vx *= 1.1
@@ -486,8 +487,11 @@ def main(custom=False):
                             clicked_body = body
                             # Calcula a distância entre o corpo clicado e os outros corpos celestes
                             distances = {other_body.name: calcular_distancia(clicked_body, other_body, const) for other_body in bodies if other_body != clicked_body}
-                            # Mostra a distância em uma caixa de mensagem
-                            message = "\n".join([f"{name}: {distance:.2f} AU" for name, distance in distances.items()])
+                            # Calcula as distâncias em notação científica
+                            distancias_formatadas = {name: format(distance, '.2e') for name, distance in distances.items()}
+                            # Monta a mensagem formatada
+                            message = "\n".join([f"{name}: {distance} AU" for name, distance in distancias_formatadas.items()])
+                            # Mostra a mensagem com as distâncias
                             messagebox.showinfo(title="Distâncias", message=message)
 
         pygame.draw.rect(win, (0, 255, 0), btn_reiniciar)  # Cor do botão
@@ -560,8 +564,9 @@ def mostrar_informacoes_gui(bodies):
     for info in infos:
         # Calcula a velocidade total
         velocidade_total = sqrt(info['Velocidade X (m/s)'] ** 2 + info['Velocidade Y (m/s)'] ** 2)
-        info_text = f"Nome: {info['Nome']}, Velocidade Total: {velocidade_total:.2f} m/s, Massa: {info['Massa (kg)']}"
+        info_text = f"Nome: {info['Nome']}, Velocidade Total: {format(velocidade_total, '.2e')} m/s, Massa: {format(info['Massa (kg)'], '.2e')}"
         tk.Label(body_frame, text=info_text, font=("Helvetica", 12), fg=text_color, bg=bg_color).pack(anchor="w", pady=3)
+
     # Adicionando informações sobre os comandos do Pygame
     pygame_info_text = "\nComandos Pygame:\n\n" \
                        "Espaço: Pausar/Continuar\n" \
@@ -784,6 +789,8 @@ def adicionar_corpo():
     def adicionar_saturno():
         adicionar_planeta("Saturno", "5.683*10e26" , "antiquewhite1", 15)
 
+    def adicionar_buraco_negro():
+        adicionar_planeta("Buraco Negro", "1e40", "black", 5)
 
     botao_adicionar_sol = tk.Button(window, text="Adicionar Sol", command=adicionar_sol)
     botao_adicionar_sol.grid(row=11, column=0, pady=5)
@@ -803,13 +810,16 @@ def adicionar_corpo():
     botao_adicionar_saturno = tk.Button(window, text="Adicionar Saturno", command=adicionar_saturno)
     botao_adicionar_saturno.grid(row=13, column=1, pady=5)
 
+    botao_adicionar_buraco_negro = tk.Button(window, text="Adicionar Buraco Negro", command=adicionar_buraco_negro)
+    botao_adicionar_buraco_negro.grid(row=14, column=0, columnspan=2, pady=5)
+
     def iniciar_simulacao():
         window.destroy()    
         if simulacao_ativa:
             messagebox.showinfo("Sucesso", "Reinicie a Simulação com a tecla ESC.")
 
     botao_reiniciar_simulacao = tk.Button(window, text="Iniciar Simulação", command=iniciar_simulacao)
-    botao_reiniciar_simulacao.grid(row=14, column=0, columnspan=2, pady=5)
+    botao_reiniciar_simulacao.grid(row=15, column=0, columnspan=2, pady=5)
 
     window.mainloop()  # Executa a janela
 

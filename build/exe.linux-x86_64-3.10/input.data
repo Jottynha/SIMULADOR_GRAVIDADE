@@ -1,2 +1,3 @@
 nome: Sol x: 0.0 y: 0.0 massa: 1.98892e31 vx: 0 vy: 0 cor: gold raio: 50
 nome: Terra x: -1.0 y: 0.0 massa: 5.9742e24 vx: 0 vy: 0 cor: aquamarine2 raio: 10
+nome: Mercúrio x: 0.0 y: 1.0 massa: 3.30*10e23 vx: 0 vy: 0 cor: darkgray raio: 10
