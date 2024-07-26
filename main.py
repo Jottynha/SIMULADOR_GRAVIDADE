@@ -77,14 +77,7 @@ cores_portugues_ingles = {
     "verde primavera médio": "mediumspringgreen",
     "azul pálido": "paleblue",
     "azul ardósia pálido": "lightslateblue",
-    "azul ardósia pálido": "lightskyblue",
-    "azul ardósia pálido": "lightslateblue",
-    "azul ardósia pálido": "lightskyblue",
-    "azul ardósia pálido": "lightslateblue",
-    "azul ardósia pálido": "lightskyblue",
-    "azul ardósia pálido": "lightslateblue",
-    "azul ardósia pálido": "lightskyblue",
-    "azul ardósia pálido": "lightslateblue",
+    "azul ardósia pálido": "lightskyblue"
 }
 
 
@@ -113,9 +106,9 @@ class Body:
     def storage(self):
         info_planeta = {
             'Nome': self.name,
-            'Velocidade X (m/s)': format(self.vx, '.2e'),
-            'Velocidade Y (m/s)': format(self.vy, '.2e'),
-            'Massa (kg)': format(self.mass, '.2e')
+            'Velocidade X (m/s)': format(float(self.vx), '.2e'),
+            'Velocidade Y (m/s)': format(float(self.vy), '.2e'),
+            'Massa (kg)': format(float(self.mass), '.2e')
         }
         return info_planeta
         
@@ -562,10 +555,24 @@ def mostrar_informacoes_gui(bodies):
     
     # Adicionando informações dos corpos celestes
     for info in infos:
-        # Calcula a velocidade total
-        velocidade_total = sqrt(info['Velocidade X (m/s)'] ** 2 + info['Velocidade Y (m/s)'] ** 2)
-        info_text = f"Nome: {info['Nome']}, Velocidade Total: {format(velocidade_total, '.2e')} m/s, Massa: {format(info['Massa (kg)'], '.2e')}"
-        tk.Label(body_frame, text=info_text, font=("Helvetica", 12), fg=text_color, bg=bg_color).pack(anchor="w", pady=3)
+        try:
+                # Converte as strings para floats
+                vx = float(info['Velocidade X (m/s)'])
+                vy = float(info['Velocidade Y (m/s)'])
+                massa = float(info['Massa (kg)'])
+                
+                # Calcula a velocidade total
+                velocidade_total = sqrt(vx ** 2 + vy ** 2)
+                
+                # Cria o texto com as informações
+                info_text = (f"Nome: {info['Nome']}, "
+                            f"Velocidade Total: {format(velocidade_total, '.2e')} m/s, "
+                            f"Massa: {format(massa, '.2e')}")
+                
+                # Adiciona a label com as informações
+                tk.Label(body_frame, text=info_text, font=("Helvetica", 12), fg=text_color, bg=bg_color).pack(anchor="w", pady=3)
+        except ValueError as e:
+                print(f"Erro ao formatar dados para {info['Nome']}: {e}")
 
     # Adicionando informações sobre os comandos do Pygame
     pygame_info_text = "\nComandos Pygame:\n\n" \
