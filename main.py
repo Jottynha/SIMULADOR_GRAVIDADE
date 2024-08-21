@@ -3,11 +3,13 @@ import math
 import re
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import scrolledtext
 from math import sqrt
 from tkinter.simpledialog import askfloat
 
 from arrow import draw_arrow
 
+bodies = []
 simulacao_ativa = False
 
 
@@ -517,7 +519,6 @@ def calcular_distancia(body1, body2, const):
     distance = math.sqrt(distance_x ** 2 + distance_y ** 2)
     return distance / const.SCALE  # Converta para unidades astronômicas (AU)
 
-
 #Coleta as informações no dicionário
 def coletar_informacoes(bodies):
     todas_infos = []
@@ -628,8 +629,15 @@ def adicionar_corpo():
         cor = cor_entry.get().lower()  # Converta para minúsculas para facilitar a comparação
         if cor in cores_portugues_ingles:
             cor = cores_portugues_ingles[cor]  # Use o equivalente em inglês
-
-
+        def verificar_colisao(x, y, raio):
+            for body in bodies:
+                distancia = calcular_distancia(x, y, body["x"], body["y"], AU)
+                if distancia < (raio + body["raio"]) / AU.SCALE:  # Ajuste raio conforme a escala
+                    messagebox.showerror("Erro", "Posição inválida: os corpos celestes estão colidindo!")
+                    return True
+            return False
+        if verificar_colisao(x, y, raio):
+            return  # Se houver colisão, a função é retornada sem salvar
         # Formata as informações
         info_formatada = f"nome: {nome} x: {x} y: {y} massa: {massa} vx: {vx} vy: {vy} cor: {cor} raio: {raio}\n"
 
@@ -827,6 +835,44 @@ def adicionar_corpo():
 
     botao_reiniciar_simulacao = tk.Button(window, text="Iniciar Simulação", command=iniciar_simulacao)
     botao_reiniciar_simulacao.grid(row=15, column=0, columnspan=2, pady=5)
+
+    # Função para abrir uma nova janela onde o usuário pode escrever livremente no arquivo de texto
+    def abrir_instrucoes():
+        def salvar_texto():
+            with open("instrucoes.txt", "w") as file:
+                file.write(texto.get("1.0", tk.END))
+        
+        nova_janela = tk.Toplevel(window)
+        nova_janela.title("Editar Instruções")
+
+        texto = scrolledtext.ScrolledText(nova_janela, wrap=tk.WORD, width=50, height=20)
+        texto.pack(pady=10, padx=10)
+
+        # Carregar conteúdo existente do arquivo, se houver
+        try:
+            with open("instrucoes.txt", "r") as file:
+                conteudo = file.read()
+                texto.insert(tk.END, conteudo)
+        except FileNotFoundError:
+            pass  # Caso o arquivo não exista, apenas ignore.
+
+        botao_salvar = tk.Button(nova_janela, text="Salvar", command=salvar_texto)
+        botao_salvar.pack(pady=5)
+        
+    # Função para limpar o conteúdo do arquivo de texto
+    def limpar_arquivo_texto():
+        caminho_arquivo = "instrucoes.txt"
+        with open(caminho_arquivo, 'w') as arquivo:
+            arquivo.write("")  # Escreve um conteúdo vazio, limpando o arquivo
+        messagebox.showinfo("Limpeza", "O arquivo de instruções foi limpo.")
+
+    # Botão para abrir o arquivo de texto
+    botao_abrir_instrucoes = tk.Button(window, text="Abrir Instruções", command=abrir_instrucoes)
+    botao_abrir_instrucoes.grid(row=16, column=0, columnspan=2, pady=5)
+
+    # Botão para limpar o arquivo de texto
+    botao_limpar_instrucoes = tk.Button(window, text="Limpar Instruções", command=limpar_arquivo_texto)
+    botao_limpar_instrucoes.grid(row=17, column=0, columnspan=2, pady=5)
 
     window.mainloop()  # Executa a janela
 
