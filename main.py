@@ -9,7 +9,6 @@ from tkinter.simpledialog import askfloat
 
 from arrow import draw_arrow
 
-bodies = []
 simulacao_ativa = False
 
 
@@ -599,7 +598,27 @@ def mostrar_informacoes_gui(bodies):
     window.mainloop()
     return window
 
-
+def ler_corpos_do_arquivo():
+            corpos = []
+            try:
+                with open("input.data", "r") as arquivo:
+                    linhas = arquivo.readlines()
+                    for linha in linhas:
+                        dados = linha.strip().split()
+                        corpo = {
+                            'nome': dados[1],
+                            'x': float(dados[3]),
+                            'y': float(dados[5]),
+                            'massa': float(dados[7]),
+                            'vx': float(dados[9]),
+                            'vy': float(dados[11]),
+                            'cor': dados[13],
+                            'raio': float(dados[15])
+                        }
+                        corpos.append(corpo)
+            except FileNotFoundError:
+                pass  # Arquivo não encontrado, retornar lista vazia
+            return corpos
 
 def adicionar_corpo():
     window = tk.Tk()  # Cria uma nova janela
@@ -629,34 +648,60 @@ def adicionar_corpo():
         cor = cor_entry.get().lower()  # Converta para minúsculas para facilitar a comparação
         if cor in cores_portugues_ingles:
             cor = cores_portugues_ingles[cor]  # Use o equivalente em inglês
-        def verificar_colisao(x, y, raio):
-            for body in bodies:
-                distancia = calcular_distancia(x, y, body["x"], body["y"], AU)
-                if distancia < (raio + body["raio"]) / AU.SCALE:  # Ajuste raio conforme a escala
-                    messagebox.showerror("Erro", "Posição inválida: os corpos celestes estão colidindo!")
+
+        def calcular_distancia(body1, body2):
+            distance_x = body2['x'] - body1['x']
+            distance_y = body2['y'] - body1['y']
+            distance = math.sqrt(distance_x ** 2 + distance_y ** 2)
+            return distance  # Converta para unidades astronômicas (AU)
+
+        def verificar_colisao(novo_objeto, bodies):
+            for corpo in bodies:
+                distancia = calcular_distancia(novo_objeto, corpo)
+                soma_radiuses = novo_objeto['raio'] + corpo['raio']
+                
+                # Se a distância entre os centros for menor que a soma dos raios, há colisão
+                if distancia < soma_radiuses:
                     return True
             return False
-        if verificar_colisao(x, y, raio):
-            return  # Se houver colisão, a função é retornada sem salvar
-        # Formata as informações
-        info_formatada = f"nome: {nome} x: {x} y: {y} massa: {massa} vx: {vx} vy: {vy} cor: {cor} raio: {raio}\n"
 
-        # Salva as informações no arquivo input.data
-        with open("input.data", "a") as arquivo:
-            arquivo.write(info_formatada)
+        # Cria um dicionário para o novo objeto
+        novo_objeto = {
+            'nome': nome,
+            'x': float(x),
+            'y': float(y),
+            'massa': massa,
+            'vx': vx,
+            'vy': vy,
+            'cor': cor,
+            'raio': float(raio)
+        }
+        
+        # Lê os corpos existentes do arquivo
+        corpos_existentes = ler_corpos_do_arquivo()
 
-        # Limpa os campos de entrada após salvar
-        nome_entry.delete(0, tk.END)
-        x_entry.delete(0, tk.END)
-        y_entry.delete(0, tk.END)
-        massa_entry.delete(0, tk.END)
-        vx_entry.delete(0, tk.END)
-        vy_entry.delete(0, tk.END)
-        cor_entry.delete(0, tk.END)
-        raio_entry.delete(0, tk.END)
+        # Verifica colisões antes de salvar
+        if verificar_colisao(novo_objeto, corpos_existentes):
+            messagebox.showwarning("Colisão Detectada", "Há uma colisão com outro objeto. Não é possível salvar.")
+        else:
+            info_formatada = f"nome: {nome} x: {x} y: {y} massa: {massa} vx: {vx} vy: {vy} cor: {cor} raio: {raio}\n"
 
-        # Mostra uma mensagem de confirmação
-        messagebox.showinfo("Sucesso", "As informações foram salvas, reinicie o programa pressionando ESC para iniciar a simulação!")
+            # Salva as informações no arquivo input.data
+            with open("input.data", "a") as arquivo:
+                arquivo.write(info_formatada)
+
+            # Limpa os campos de entrada após salvar
+            nome_entry.delete(0, tk.END)
+            x_entry.delete(0, tk.END)
+            y_entry.delete(0, tk.END)
+            massa_entry.delete(0, tk.END)
+            vx_entry.delete(0, tk.END)
+            vy_entry.delete(0, tk.END)
+            cor_entry.delete(0, tk.END)
+            raio_entry.delete(0, tk.END)
+
+            # Mostra uma mensagem de confirmação
+            messagebox.showinfo("Sucesso", "As informações foram salvas, reinicie o programa pressionando ESC para iniciar a simulação!")
 
     # Labels
     tk.Label(window, text="Nome do Corpo: ").grid(row=0, column=0)
@@ -777,14 +822,50 @@ def adicionar_corpo():
         # Solicita ao usuário para inserir as posições x e y como inteiros
         x = askfloat(f"Posição X do {nome}", f"Insira a posição X do {nome} (AU):")
         y = askfloat(f"Posição Y do {nome}", f"Insira a posição Y do {nome} (AU):")
-
+        vx = askfloat(f"Velocidade em X do {nome}", f"Insira a velocidade X do {nome} (m/s):")
+        vy = askfloat(f"Velocidade em Y do {nome}", f"Insira a velocidade Y do {nome} (m/s):")
         if x is not None and y is not None:
             # Formata a massa como uma string com notação científica
             massa_str = str(massa)
+            def calcular_distancia(body1, body2):
+                distance_x = body2['x'] - body1['x']
+                distance_y = body2['y'] - body1['y']
+                distance = math.sqrt(distance_x ** 2 + distance_y ** 2)
+                return distance  # Converta para unidades astronômicas (AU)
+
+            def verificar_colisao(novo_objeto, bodies):
+                for corpo in bodies:
+                    distancia = calcular_distancia(novo_objeto, corpo)
+                    soma_radiuses = novo_objeto['raio'] + corpo['raio']
+                    
+                    # Se a distância entre os centros for menor que a soma dos raios, há colisão
+                    if distancia < soma_radiuses:
+                        return True
+                return False
+
+            # Cria um dicionário para o novo objeto
+            novo_objeto = {
+                'nome': nome,
+                'x': float(x),
+                'y': float(y),
+                'massa': massa,
+                'vx': vx,
+                'vy': vy,
+                'cor': cor,
+                'raio': float(raio)
+            }
+            
+            # Lê os corpos existentes do arquivo
+            corpos_existentes = ler_corpos_do_arquivo()
+
+            # Verifica colisões antes de salvar
+            if verificar_colisao(novo_objeto, corpos_existentes):
+                messagebox.showwarning("Colisão Detectada", "Há uma colisão com outro objeto. Não é possível salvar.")
             # Adiciona informações do planeta ao arquivo
-            with open("input.data", "a") as arquivo:
-                arquivo.write(f"nome: {nome} x: {x} y: {y} massa: {massa_str} vx: 0 vy: 0 cor: {cor} raio: {raio}\n")
-            messagebox.showinfo("Sucesso", f"{nome} adicionado com sucesso!")
+            else:
+                with open("input.data", "a") as arquivo:
+                    arquivo.write(f"nome: {nome} x: {x} y: {y} massa: {massa_str} vx: {vx} vy: {vy} cor: {cor} raio: {raio}\n")
+                    messagebox.showinfo("Sucesso", f"{nome} adicionado com sucesso!")
 
     def adicionar_sol():
         adicionar_planeta("Sol","1.98892e31","gold",50)
