@@ -653,7 +653,7 @@ def adicionar_corpo():
             distance_x = body2['x'] - body1['x']
             distance_y = body2['y'] - body1['y']
             distance = math.sqrt(distance_x ** 2 + distance_y ** 2)
-            return distance  # Converta para unidades astronômicas (AU)
+            return distance*AU
 
         def verificar_colisao(novo_objeto, bodies):
             for corpo in bodies:
@@ -725,12 +725,17 @@ def adicionar_corpo():
         "Insira o raio"
     ]
 
+    def focus_next_widget(event):
+        event.widget.tk_focusNext().focus()
+        return "break"
+
     nome_entry = tk.Entry(window)
     nome_entry.grid(row=0, column=1)
     nome_entry.insert(tk.END, default_texts[0])
     nome_entry.config(fg="gray")
     nome_entry.bind("<FocusIn>", lambda event, entry=nome_entry: on_entry_click(event, entry))
     nome_entry.bind("<FocusOut>", lambda event, entry=nome_entry, default_text=default_texts[0]: on_focusout(event, entry, default_text))
+    nome_entry.bind("<Return>", focus_next_widget)
 
     x_entry = tk.Entry(window)
     x_entry.grid(row=1, column=1)
@@ -738,6 +743,7 @@ def adicionar_corpo():
     x_entry.config(fg="gray")
     x_entry.bind("<FocusIn>", lambda event, entry=x_entry: on_entry_click(event, entry))
     x_entry.bind("<FocusOut>", lambda event, entry=x_entry, default_text=default_texts[1]: on_focusout(event, entry, default_text))
+    x_entry.bind("<Return>", focus_next_widget)
 
     y_entry = tk.Entry(window)
     y_entry.grid(row=2, column=1)
@@ -745,6 +751,7 @@ def adicionar_corpo():
     y_entry.config(fg="gray")
     y_entry.bind("<FocusIn>", lambda event, entry=y_entry: on_entry_click(event, entry))
     y_entry.bind("<FocusOut>", lambda event, entry=y_entry, default_text=default_texts[2]: on_focusout(event, entry, default_text))
+    y_entry.bind("<Return>", focus_next_widget)
 
     massa_entry = tk.Entry(window)
     massa_entry.grid(row=3, column=1)
@@ -752,6 +759,7 @@ def adicionar_corpo():
     massa_entry.config(fg="gray")
     massa_entry.bind("<FocusIn>", lambda event, entry=massa_entry: on_entry_click(event, entry))
     massa_entry.bind("<FocusOut>", lambda event, entry=massa_entry, default_text=default_texts[3]: on_focusout(event, entry, default_text))
+    massa_entry.bind("<Return>", focus_next_widget)
 
     vx_entry = tk.Entry(window)
     vx_entry.grid(row=4, column=1)
@@ -759,6 +767,7 @@ def adicionar_corpo():
     vx_entry.config(fg="gray")
     vx_entry.bind("<FocusIn>", lambda event, entry=vx_entry: on_entry_click(event, entry))
     vx_entry.bind("<FocusOut>", lambda event, entry=vx_entry, default_text=default_texts[4]: on_focusout(event, entry, default_text))
+    vx_entry.bind("<Return>", focus_next_widget)
 
     vy_entry = tk.Entry(window)
     vy_entry.grid(row=5, column=1)
@@ -766,6 +775,7 @@ def adicionar_corpo():
     vy_entry.config(fg="gray")
     vy_entry.bind("<FocusIn>", lambda event, entry=vy_entry: on_entry_click(event, entry))
     vy_entry.bind("<FocusOut>", lambda event, entry=vy_entry, default_text=default_texts[5]: on_focusout(event, entry, default_text))
+    vy_entry.bind("<Return>", focus_next_widget)
 
     cor_entry = tk.Entry(window)
     cor_entry.grid(row=6, column=1)
@@ -773,6 +783,7 @@ def adicionar_corpo():
     cor_entry.config(fg="gray")
     cor_entry.bind("<FocusIn>", lambda event, entry=cor_entry: on_entry_click(event, entry))
     cor_entry.bind("<FocusOut>", lambda event, entry=cor_entry, default_text=default_texts[6]: on_focusout(event, entry, default_text))
+    cor_entry.bind("<Return>", focus_next_widget)
 
     raio_entry = tk.Entry(window)
     raio_entry.grid(row=7, column=1)
@@ -780,6 +791,7 @@ def adicionar_corpo():
     raio_entry.config(fg="gray")
     raio_entry.bind("<FocusIn>", lambda event, entry=raio_entry: on_entry_click(event, entry))
     raio_entry.bind("<FocusOut>", lambda event, entry=raio_entry, default_text=default_texts[7]: on_focusout(event, entry, default_text))
+    raio_entry.bind("<Return>", focus_next_widget)
     
     # Botão para salvar as informações
     botao_salvar = tk.Button(window, text="Salvar", command=salvar_info)
@@ -831,7 +843,7 @@ def adicionar_corpo():
                 distance_x = body2['x'] - body1['x']
                 distance_y = body2['y'] - body1['y']
                 distance = math.sqrt(distance_x ** 2 + distance_y ** 2)
-                return distance  # Converta para unidades astronômicas (AU)
+                return distance*AU
 
             def verificar_colisao(novo_objeto, bodies):
                 for corpo in bodies:
