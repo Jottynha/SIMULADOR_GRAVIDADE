@@ -84,7 +84,7 @@ $$\vec{F_r} = M_{\text{Terra}} \cdot \vec{a}_c$$
 
 onde \( a_c \) é a aceleração centrípeta da Terra. A aceleração centrípeta, que aponta em direção ao centro do Sol, é dada por:
 
-$$\vec{a}_c = \frac{v^2}{r} \, \hat{r}$$
+$$\vec{a}_c = \frac{v^2}{r}\hat{r}$$
 
 onde \( v \) é a velocidade da Terra em sua órbita. Como a força gravitacional é a única força agindo na direção radial, temos que:
 
@@ -116,8 +116,7 @@ Substituindo esses valores na equação:
 
 $$v \approx 2{,}978 \cdot 10^4 \, \text{m/s}$$
 
-Portanto, a velocidade orbital média da Terra ao redor do Sol é aproximadamente $v \approx 29{,}78 \cdot 10^3 \, \text{m/s}$, ou seja,$v \approx 29{,}78 \, \text{km/s}$.
-
+Portanto, a velocidade orbital média da Terra ao redor do Sol é aproximadamente $v \approx 29{,}78 \cdot 10^3 \, \text{m/s}$.
 ### Unidade Astronômica (AU)
 
 Antes de executar a simulação, é importante entender a conceituação de AU. Uma Unidade Astronômica (AU) é uma medida de distância utilizada principalmente para descrever as distâncias dentro do Sistema Solar. Ela é definida como a distância média entre a Terra e o Sol, que é aproximadamente \( 149.597.870,7 \) km. Essa unidade é especialmente útil em astronomia para simplificar a comunicação de grandes distâncias, como a distância entre planetas ou entre um planeta e o Sol. Por exemplo, a Terra está a 1 AU do Sol, enquanto Júpiter está a cerca de 5,2 AU.
@@ -134,11 +133,11 @@ Para executar a simulação no simulador de gravitação, siga os passos abaixo:
 
 3. **Adicionando o Sol:**
    - Coloque o Sol na origem do sistema de coordenadas, ou seja, na posição \((0,0)\) em unidades astronômicas (AU).
-   - Defina a velocidade do Sol como \( v_x = 0 \, \text{m/s} \) e \( v_y = 0 \, \text{m/s} \).
+   - Defina a velocidade do Sol como $v_x = 0 \, \text{m/s}$ e $v_y = 0 \, \text{m/s}$.
 
 4. **Adicionando a Terra:**
    - Adicione a Terra na posição \((1,0)\) em AU, que representa uma distância média de 1 unidade astronômica do Sol.
-   - Defina a velocidade da Terra com \( v_x = 0 \, \text{m/s} \) e \( v_y = 29780 \, \text{m/s} \).
+   - Defina a velocidade da Terra com $v_x = 0 \, \text{m/s}$ e $v_y = 29780 \, \text{m/s}$.
 
 5. **Iniciando a Simulação:**
    - Após configurar o Sol e a Terra, inicie a simulação. O simulador calculará a trajetória da Terra ao redor do Sol com base nas condições iniciais fornecidas, mostrando uma órbita estável se os parâmetros estiverem corretos.
