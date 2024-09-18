@@ -19,10 +19,12 @@ Para chegar a essa conclusão, Newton utilizou suas três leis do movimento:
 1. **Primeira Lei de Newton** (Lei da Inércia): Um corpo em repouso permanece em repouso e um corpo em movimento continua em movimento retilíneo uniforme, a menos que seja atuado por uma força externa.
    
    $$ \vec{F} = \vec{0} \implies \vec{v} = \text{constante} $$
-2. **Segunda Lei de Newton**: Relaciona a força atuante sobre um corpo, sua massa e sua aceleração.
+   
+3. **Segunda Lei de Newton**: Relaciona a força atuante sobre um corpo, sua massa e sua aceleração.
 
-   $$ \vec{F} = m \cdot \vec{a} $$
-3. **Terceira Lei de Newton** (Lei de Ação e Reação): Para toda ação há uma reação igual e oposta.
+   $$\vec{F} = m \cdot \vec{a}$$
+   
+5. **Terceira Lei de Newton** (Lei de Ação e Reação): Para toda ação há uma reação igual e oposta.
 
    $$ \vec{F}_{12} = -\vec{F}_{21} $$
 
