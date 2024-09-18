@@ -36,17 +36,37 @@ A força gravitacional entre duas partículas diminui com o aumento da distânci
 
 $$G = 6.67384(80) \cdot 10^{-11} \, \text{N} \cdot \text{m}^2 / \text{kg}^{-2}$$
 
-### 🛰️ Simulador de Gravidade
+## Desenvolvimento da Interface
 
-O simulador de gravidade foi projetado para demonstrar a aplicação prática da Lei da Gravitação Universal. A implementação do código Python segue os princípios teóricos da seguinte forma:
+Para o desenvolvimento deste trabalho, adotou-se uma abordagem orientada ao design da interface do usuário e à manipulação interativa do programa. A metodologia utilizada focou na criação de uma interface gráfica intuitiva e funcional, empregando a biblioteca Tkinter em Python. A seguir, descreve-se a abordagem detalhada adotada para implementar as funcionalidades do Front-End do programa.
 
-- **Cálculo da Força Gravitacional:** A fórmula da gravitação universal é implementada para calcular a força de atração entre dois corpos celestes. A função `calcular_forca_gravitacional` recebe as massas e a distância entre os corpos e retorna a força gravitacional.
-  
-- **Atualização das Posições:** A força gravitacional calculada é utilizada para atualizar as posições dos corpos. As equações do movimento consideram a força de atração gravitacional, permitindo que os corpos interajam de acordo com as leis de Newton.
+A interface gráfica do simulador foi desenvolvida utilizando a biblioteca Tkinter, que permite a criação de interfaces ricas e interativas em Python. Tkinter foi escolhido devido à sua simplicidade e integração direta com o Python, facilitando o desenvolvimento e a manutenção do código.
 
-- **Interface Gráfica:** A interface gráfica, desenvolvida com **Pygame**, permite visualizar as interações gravitacionais em tempo real. O usuário pode ajustar as massas e a distância entre os corpos e observar as mudanças nas órbitas e nas forças de atração.
+### Visualização e Atualização da Simulação
 
-A aplicação desses fundamentos teóricos no projeto oferece uma visualização interativa dos conceitos de gravitação universal, permitindo ao usuário explorar as variações de massa e distância entre corpos celestes.
+A visualização da simulação é atualizada em tempo real em uma área dedicada da interface. Esta área mostra a movimentação dos corpos e os efeitos da gravitação, permitindo ao usuário acompanhar a simulação de forma dinâmica. O programa utiliza um loop de eventos para atualizar continuamente a visualização da simulação. Cada iteração do loop recalcula as posições dos corpos com base nas forças gravitacionais e atualiza a exibição gráfica. Além disso, um arquivo de texto é utilizado como base de dados, onde as interfaces que adicionam corpos celestes em simulações personalizadas manipulam diretamente este mesmo arquivo.
+
+### Componentes da Interface
+
+A interface foi projetada para permitir ao usuário interagir com a simulação de forma intuitiva. O layout inclui elementos visuais como botões, campos de entrada e áreas de visualização, dispostos de forma a maximizar a usabilidade e a clareza das informações apresentadas.
+
+- **Botões e Controles:** Foram implementados botões para iniciar, pausar e reiniciar a simulação. Controles adicionais permitem a configuração dos parâmetros da simulação, como a massa dos corpos e a distância entre eles. Clicando com o mouse sobre cada corpo, é possível visualizar a distância em AU dos demais corpos ou as informações simplificadas do corpo selecionado.
+
+- **Campos de Entrada:** O usuário pode inserir valores diretamente nos campos de entrada para ajustar os parâmetros da simulação. Isso inclui a definição das características dos corpos em simulação, como suas massas, posições iniciais, cores e velocidades iniciais.
+
+- **Legendas Intuitivas:** A interface inclui legendas que auxiliam o usuário a utilizar o programa, demonstrando como a simulação pode ser manipulada e como cada campo influencia na simulação.
+
+- **Manipulação dos Dados:** Os dados colocados dentro do arquivo de dados podem ser limpos a qualquer instante, proporcionando maior liberdade e facilidade para o usuário nas simulações desejadas.
+
+### Interatividade e Feedback
+
+Para garantir uma experiência de usuário fluida e interativa, foram implementadas técnicas de manipulação dinâmica e atualização em tempo real dos elementos da interface. A seguir, detalha-se como essas manipulações são realizadas:
+
+- **Interatividade:** A interface permite ao usuário interagir diretamente com a simulação através de controles e ajustes. As entradas do usuário são processadas em tempo real, ajustando os parâmetros da simulação conforme necessário.
+
+- **Feedback Imediato:** A resposta da interface às ações do usuário é imediata, proporcionando um feedback visual claro. Isso inclui a atualização das informações exibidas e a adaptação da simulação de acordo com as mudanças nos parâmetros.
+
+Essa abordagem permite uma interação eficiente e intuitiva com o simulador de gravidade, facilitando o uso e compreensão dos resultados obtidos na simulação.
 
 
 ## 📋 Funcionalidades
