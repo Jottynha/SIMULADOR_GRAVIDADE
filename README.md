@@ -1,8 +1,9 @@
 # 🌍🔭 Gravitação e Simulação de Órbitas com Tkinter e Pygame
 
 <p align="center">
-  <img src="[(https://t.ctcdn.com.br/r1TQAeoVDTZp2sxvmuPfw8a9xVc=/660x0/smart/i551986.gif)]" alt="Descrição do GIF" />
+  <img src="https://t.ctcdn.com.br/r1TQAeoVDTZp2sxvmuPfw8a9xVc=/660x0/smart/i551986.gif" alt="Descrição do GIF" />
 </p>
+
 
 
 Este repositório contém uma simulação de gravitação e órbitas planetárias utilizando o **Pygame** para visualização e o **Tkinter** para a criação de interfaces gráficas interativas. A simulação é inspirada no projeto original de [Getulio Mendes](https://github.com/Getulio-Mendes/gravity-simulation), e adicionamos uma interface gráfica que permite ao usuário manipular os parâmetros de simulação com facilidade.
