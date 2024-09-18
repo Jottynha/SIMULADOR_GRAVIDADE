@@ -73,18 +73,14 @@ Essa abordagem permite uma interação eficiente e intuitiva com o simulador de 
 ### Lei da Gravitação Universal
 
 A partir da lei da gravitação universal de Newton, a força que o Sol exerce sobre a Terra é dada por:
-
-\[ 
-F = \frac{G \cdot M_{\text{Sol}} \cdot M_{\text{Terra}}}{r^2}, 
-\]
+ 
+$$F = \frac{G \cdot M_{\text{Sol}} \cdot M_{\text{Terra}}}{r^2}$$
 
 onde \( G \) é a constante gravitacional, \( M_{\text{Sol}} \) e \( M_{\text{Terra}} \) são as massas do Sol e da Terra, respectivamente, e \( r \) é a distância entre os centros de massa da Terra e do Sol.
 
 No vácuo espacial, onde não há atrito significativo, a única força relevante atuando sobre a Terra em sua órbita ao redor do Sol é a força gravitacional \( F \). De acordo com a segunda lei de Newton, temos:
 
-\[
-\vec{F_r} = M_{\text{Terra}} \cdot \vec{a}_c,
-\]
+$$\vec{F_r} = M_{\text{Terra}} \cdot \vec{a}_c$$
 
 onde \( \vec{a}_c \) é a aceleração centrípeta da Terra. A aceleração centrípeta, que aponta em direção ao centro do Sol, é dada por:
 
