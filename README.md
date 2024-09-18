@@ -22,11 +22,11 @@ Para chegar a essa conclusão, Newton utilizou suas três leis do movimento:
 
 2. **Segunda Lei de Newton**: Relaciona a força atuante sobre um corpo, sua massa e sua aceleração.
 
-   $$ \vec{F} = m \cdot \vec{a} $$
+   $$ \vec{F} = m * \vec{a} $$
 
 3. **Terceira Lei de Newton** (Lei de Ação e Reação): Para toda ação há uma reação igual e oposta.
 
-   $$ \vec{F}_{12} = -\vec{F}_{21} $$
+   $$ \vec{F_12} = -\vec{F_21} $$
 
 As forças gravitacionais sempre atuam ao longo da linha que une as duas partículas e têm módulos iguais, independentemente das massas. A força gravitacional \( F_g \) entre dois corpos de massas \( m_1 \) e \( m_2 \) separados por uma distância \( r \) é dada pela fórmula:
 
