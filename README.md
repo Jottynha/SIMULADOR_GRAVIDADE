@@ -132,12 +132,12 @@ Para executar a simulação no simulador de gravitação, siga os passos abaixo:
    - No menu inicial do simulador, selecione a opção de "Não" para simulação pronta. Isso permitirá que você configure manualmente as condições iniciais do sistema que deseja simular.
 
 3. **Adicionando o Sol:**
-   - Coloque o Sol na origem do sistema de coordenadas, ou seja, na posição \((0,0)\) em unidades astronômicas (AU).
-   - Defina a velocidade do Sol como $v_x = 0 \, \text{m/s}$ e $v_y = 0  \text{m/s}$.
+   - Coloque o Sol na origem do sistema de coordenadas, ou seja, na posição \(0,0\) em unidades astronômicas (AU).
+   - Defina a velocidade do Sol como $v_x = 0  \text{m/s}$ e $v_y = 0  \text{m/s}$.
 
 4. **Adicionando a Terra:**
-   - Adicione a Terra na posição \((1,0)\) em AU, que representa uma distância média de 1 unidade astronômica do Sol.
-   - Defina a velocidade da Terra com $v_x = 0 \, \text{m/s}$ e $v_y = 29780 \text{m/s}$.
+   - Adicione a Terra na posição \(1,0\) em AU, que representa uma distância média de 1 unidade astronômica do Sol.
+   - Defina a velocidade da Terra com $v_x = 0  \text{m/s}$ e $v_y = 29780 \text{m/s}$.
 
 5. **Iniciando a Simulação:**
    - Após configurar o Sol e a Terra, inicie a simulação. O simulador calculará a trajetória da Terra ao redor do Sol com base nas condições iniciais fornecidas, mostrando uma órbita estável se os parâmetros estiverem corretos.
@@ -230,9 +230,27 @@ Isso criará um diretório `build` contendo o executável do programa.
 - **Tkinter** – Para a interface gráfica do usuário (GUI).
 - **cx_Freeze** – Para criar um executável da aplicação.
 
+## Conclusão
+
+O desenvolvimento da interface gráfica para o simulador de sistemas planetários proporcionou uma experiência de usuário mais interativa e intuitiva, sem comprometer a precisão científica da simulação. A integração da biblioteca Tkinter permitiu a criação de um ambiente amigável, onde usuários podem ajustar parâmetros e visualizar os efeitos da gravidade em tempo real. Além disso, foram implementadas interfaces auxiliares para aplicações em contextos estudantis, permitindo a escrita e a avaliação de processos solicitados por um orientador.
+
+A aplicação dos princípios fundamentais da gravitação universal, combinada com uma interface de fácil uso, possibilitou que o simulador não apenas educasse, mas também engajasse os usuários. Durante os testes, a interface demonstrou ser eficiente na comunicação de informações críticas e na resposta às interações do usuário, embora ajustes tenham sido necessários para melhorar a clareza das mensagens de erro e a resposta a entradas inesperadas. Adicionalmente, foram feitas modificações na estruturação das funções para melhor integração com futuros usuários que desejam modificar e aprimorar o programa.
+
+Em resumo, o projeto atingiu seus objetivos de melhorar a interatividade e a funcionalidade do simulador, tornando-o uma ferramenta valiosa tanto para fins educacionais quanto de pesquisa. O trabalho futuro poderá focar em expandir ainda mais as capacidades do simulador, incorporando novos recursos e aprimorando a experiência do usuário. Além disso, as interfaces são essenciais para a funcionalidade e a eficácia dos simuladores de gravitação. Elas melhoram a experiência do usuário, promovem a precisão e controle dos experimentos e contribuem para o avanço do conhecimento científico e educacional. O desenvolvimento contínuo e a melhoria das interfaces são fundamentais para maximizar o impacto e a utilidade dos simuladores em contextos acadêmicos e profissionais.
+
+
 ## 👨‍💻 Créditos
 
 Este projeto é baseado no simulador original de [Getulio Mendes](https://github.com/Getulio-Mendes/gravity-simulation). Fizemos modificações e melhorias para incluir uma interface gráfica com o **Tkinter** e algumas otimizações no desempenho.
+
+## Referências
+
+1. Young, H. D., & Freedman, R. A. (2024). *Física 2* (14ª ed.). Editora Pearson Education do Brasil Ltda.
+
+2. Alexandre Carciofi. *Aula 6 - Dinâmica: Gravitação*, Departamento de Astronomia, IAG, Universidade de São Paulo, 2019. Disponível em: [http://www.astro.iag.usp.br/~carciofi/aulas_aga0210/aula6.pdf](http://www.astro.iag.usp.br/~carciofi/aulas_aga0210/aula6.pdf). Acesso em: 24 ago. 2024.
+
+3. Graham, Robert W. Earth’s orbit and its impact on climate and life. *Scientific American*, 2022. Disponível em: [https://www.livescience.com/31788-why-earth-perfect-for-life.html](https://www.livescience.com/31788-why-earth-perfect-for-life.html). Acesso em: 5 set. 2024.
+
 
 
 Esse é o código Markdown completo para o README que pode ser copiado diretamente para o arquivo `README.md` do seu repositório.
