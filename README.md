@@ -1,6 +1,6 @@
 # Simulação de Gravitação e Órbitas de Planetas
 
-![Gravitação e Órbitas](https://example.com/screenshot.png) <!-- Coloque um link para uma imagem do projeto -->
+![Gravitação e Órbitas]([https://example.com/screenshot.png](https://www.google.com/url?sa=i&url=https%3A%2F%2Fcanaltech.com.br%2Fespaco%2Fo-que-e-uma-orbita-207037%2F&psig=AOvVaw3vPc4XWXKtI1SqoawYRK17&ust=1726743734010000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCLiBqOqrzIgDFQAAAAAdAAAAABAK)) 
 
 Este repositório contém um projeto que combina **Tkinter** e **Pygame** para simular a gravitação e as órbitas de planetas. A interface gráfica permite uma interação intuitiva com a simulação, tornando a experiência mais acessível e visual.
 
