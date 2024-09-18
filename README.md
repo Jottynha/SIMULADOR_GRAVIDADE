@@ -44,7 +44,7 @@ Siga as instruções abaixo para executar o projeto localmente em sua máquina:
 ### 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
+git clone https://github.com/Jottynha/SIMULADOR_GRAVIDADE.git
 cd seu-repositorio
 ```
 
@@ -53,7 +53,11 @@ cd seu-repositorio
 O projeto requer Python 3.9+ e algumas bibliotecas específicas. Você pode instalar as dependências com:
 
 ```bash
-pip install -r requirements.txt
+Instalar (Python, Pygame e Tkinter):
+sudo apt-get install python3.9
+sudo apt-get install python3-pip
+sudo apt-get install python3-tk
+pip install pygame
 ```
 
 ### 3. Executar a simulação
