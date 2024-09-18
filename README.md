@@ -1,7 +1,7 @@
 # 🌍🔭 Gravitação e Simulação de Órbitas com Tkinter e Pygame
 
 <p align="center">
-  <img src="https://t.ctcdn.com.br/r1TQAeoVDTZp2sxvmuPfw8a9xVc=/660x0/smart/i551986.gif" alt="Descrição do GIF" />
+  <img src="https://t.ctcdn.com.br/r1TQAeoVDTZp2sxvmuPfw8a9xVc=/660x0/smart/i551986.gif" alt="Órbita da Terra em torno do Sol." />
 </p>
 
 
