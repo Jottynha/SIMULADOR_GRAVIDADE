@@ -76,59 +76,47 @@ A partir da lei da gravitação universal de Newton, a força que o Sol exerce s
  
 $$F = \frac{G \cdot M_{\text{Sol}} \cdot M_{\text{Terra}}}{r^2}$$
 
-onde \( G \) é a constante gravitacional, \( M_{\text{Sol}} \) e \( M_{\text{Terra}} \) são as massas do Sol e da Terra, respectivamente, e \( r \) é a distância entre os centros de massa da Terra e do Sol.
+onde \( G \) é a constante gravitacional, \( M_Sol \) e \( M_Terra \) são as massas do Sol e da Terra, respectivamente, e \( r \) é a distância entre os centros de massa da Terra e do Sol.
 
 No vácuo espacial, onde não há atrito significativo, a única força relevante atuando sobre a Terra em sua órbita ao redor do Sol é a força gravitacional \( F \). De acordo com a segunda lei de Newton, temos:
 
 $$\vec{F_r} = M_{\text{Terra}} \cdot \vec{a}_c$$
 
-onde \( \vec{a}_c \) é a aceleração centrípeta da Terra. A aceleração centrípeta, que aponta em direção ao centro do Sol, é dada por:
+onde \( a_c \) é a aceleração centrípeta da Terra. A aceleração centrípeta, que aponta em direção ao centro do Sol, é dada por:
 
-\[
-\vec{a}_c = \frac{v^2}{r} \, \hat{r},
-\]
+$$\vec{a}_c = \frac{v^2}{r} \, \hat{r}$$
 
 onde \( v \) é a velocidade da Terra em sua órbita. Como a força gravitacional é a única força agindo na direção radial, temos que:
 
-\[
-\frac{G \cdot M_{\text{Sol}} \cdot M_{\text{Terra}}}{r^2} = M_{\text{Terra}} \cdot \frac{v^2}{r}
-\]
+$$\frac{G \cdot M_{\text{Sol}} \cdot M_{\text{Terra}}}{r^2} = M_{\text{Terra}} \cdot \frac{v^2}{r}$$
 
 Podemos simplificar a equação cancelando a massa da Terra \( M_{\text{Terra}} \):
 
-\[
-\frac{G \cdot M_{\text{Sol}}}{r^2} = \frac{v^2}{r}.
-\]
+$$\frac{G \cdot M_{\text{Sol}}}{r^2} = \frac{v^2}{r}$$
 
 Multiplicando ambos os lados da equação por \( r \), obtemos:
 
-\[
-v^2 = \frac{G \cdot M_{\text{Sol}}}{r}.
-\]
+$$v^2 = \frac{G \cdot M_{\text{Sol}}}{r}$$
 
 Por fim, a velocidade orbital da Terra \( v \) é dada por:
 
-\[
-v = \sqrt{\frac{G \cdot M_{\text{Sol}}}{r}}.
-\]
+$$v = \sqrt{\frac{G \cdot M_{\text{Sol}}}{r}}$$
 
-Essa equação demonstra que a velocidade necessária para que a Terra orbite o Sol depende apenas da constante gravitacional \( G \), da massa do Sol \( M_{\text{Sol}} \) e da distância \( r \) entre a Terra e o Sol. A ausência de atrito no espaço significa que essa velocidade permanece constante, permitindo que a Terra mantenha sua órbita estável em torno do Sol.
+Essa equação demonstra que a velocidade necessária para que a Terra orbite o Sol depende apenas da constante gravitacional \( G \), da massa do Sol \( M_Sol \) e da distância \( r \) entre a Terra e o Sol. A ausência de atrito no espaço significa que essa velocidade permanece constante, permitindo que a Terra mantenha sua órbita estável em torno do Sol.
 
 ### Dados e Cálculo
 
 Buscando os dados na literatura, observamos que:
 
-- \( G = 6{,}674 \cdot 10^{-11} \, \text{m}^3 \text{kg}^{-1} \text{s}^{-2} \) é a constante gravitacional,
-- \( M_{\text{Sol}} = 1{,}989 \cdot 10^{30} \, \text{kg} \) é a massa do Sol,
-- \( r = 1{,}496 \cdot 10^{11} \, \text{m} \) é a distância média entre a Terra e o Sol.
+- $$G = 6{,}674 \cdot 10^{-11} \, \text{m}^3 \text{kg}^{-1} \text{s}^{-2}$$ é a constante gravitacional,
+- $$M_{\text{Sol}} = 1{,}989 \cdot 10^{30} \, \text{kg}$$ é a massa do Sol,
+- $$r = 1{,}496 \cdot 10^{11} \, \text{m}$$ é a distância média entre a Terra e o Sol.
 
 Substituindo esses valores na equação:
 
-\[
-v \approx 2{,}978 \cdot 10^4 \, \text{m/s}.
-\]
+$$v \approx 2{,}978 \cdot 10^4 \, \text{m/s}$$
 
-Portanto, a velocidade orbital média da Terra ao redor do Sol é aproximadamente \( v \approx 29{,}78 \cdot 10^3 \, \text{m/s} \), ou seja, \( v \approx 29{,}78 \, \text{km/s} \).
+Portanto, a velocidade orbital média da Terra ao redor do Sol é aproximadamente $v \approx 29{,}78 \cdot 10^3 \, \text{m/s}$, ou seja,$v \approx 29{,}78 \, \text{km/s}$.
 
 ### Unidade Astronômica (AU)
 
