@@ -68,6 +68,101 @@ Para garantir uma experiência de usuário fluida e interativa, foram implementa
 
 Essa abordagem permite uma interação eficiente e intuitiva com o simulador de gravidade, facilitando o uso e compreensão dos resultados obtidos na simulação.
 
+## Proposta de Atividade
+
+### Lei da Gravitação Universal
+
+A partir da lei da gravitação universal de Newton, a força que o Sol exerce sobre a Terra é dada por:
+
+\[ 
+F = \frac{G \cdot M_{\text{Sol}} \cdot M_{\text{Terra}}}{r^2}, 
+\]
+
+onde \( G \) é a constante gravitacional, \( M_{\text{Sol}} \) e \( M_{\text{Terra}} \) são as massas do Sol e da Terra, respectivamente, e \( r \) é a distância entre os centros de massa da Terra e do Sol.
+
+No vácuo espacial, onde não há atrito significativo, a única força relevante atuando sobre a Terra em sua órbita ao redor do Sol é a força gravitacional \( F \). De acordo com a segunda lei de Newton, temos:
+
+\[
+\vec{F_r} = M_{\text{Terra}} \cdot \vec{a}_c,
+\]
+
+onde \( \vec{a}_c \) é a aceleração centrípeta da Terra. A aceleração centrípeta, que aponta em direção ao centro do Sol, é dada por:
+
+\[
+\vec{a}_c = \frac{v^2}{r} \, \hat{r},
+\]
+
+onde \( v \) é a velocidade da Terra em sua órbita. Como a força gravitacional é a única força agindo na direção radial, temos que:
+
+\[
+\frac{G \cdot M_{\text{Sol}} \cdot M_{\text{Terra}}}{r^2} = M_{\text{Terra}} \cdot \frac{v^2}{r}
+\]
+
+Podemos simplificar a equação cancelando a massa da Terra \( M_{\text{Terra}} \):
+
+\[
+\frac{G \cdot M_{\text{Sol}}}{r^2} = \frac{v^2}{r}.
+\]
+
+Multiplicando ambos os lados da equação por \( r \), obtemos:
+
+\[
+v^2 = \frac{G \cdot M_{\text{Sol}}}{r}.
+\]
+
+Por fim, a velocidade orbital da Terra \( v \) é dada por:
+
+\[
+v = \sqrt{\frac{G \cdot M_{\text{Sol}}}{r}}.
+\]
+
+Essa equação demonstra que a velocidade necessária para que a Terra orbite o Sol depende apenas da constante gravitacional \( G \), da massa do Sol \( M_{\text{Sol}} \) e da distância \( r \) entre a Terra e o Sol. A ausência de atrito no espaço significa que essa velocidade permanece constante, permitindo que a Terra mantenha sua órbita estável em torno do Sol.
+
+### Dados e Cálculo
+
+Buscando os dados na literatura, observamos que:
+
+- \( G = 6{,}674 \cdot 10^{-11} \, \text{m}^3 \text{kg}^{-1} \text{s}^{-2} \) é a constante gravitacional,
+- \( M_{\text{Sol}} = 1{,}989 \cdot 10^{30} \, \text{kg} \) é a massa do Sol,
+- \( r = 1{,}496 \cdot 10^{11} \, \text{m} \) é a distância média entre a Terra e o Sol.
+
+Substituindo esses valores na equação:
+
+\[
+v \approx 2{,}978 \cdot 10^4 \, \text{m/s}.
+\]
+
+Portanto, a velocidade orbital média da Terra ao redor do Sol é aproximadamente \( v \approx 29{,}78 \cdot 10^3 \, \text{m/s} \), ou seja, \( v \approx 29{,}78 \, \text{km/s} \).
+
+### Unidade Astronômica (AU)
+
+Antes de executar a simulação, é importante entender a conceituação de AU. Uma Unidade Astronômica (AU) é uma medida de distância utilizada principalmente para descrever as distâncias dentro do Sistema Solar. Ela é definida como a distância média entre a Terra e o Sol, que é aproximadamente \( 149.597.870,7 \) km. Essa unidade é especialmente útil em astronomia para simplificar a comunicação de grandes distâncias, como a distância entre planetas ou entre um planeta e o Sol. Por exemplo, a Terra está a 1 AU do Sol, enquanto Júpiter está a cerca de 5,2 AU.
+
+### Passos para Executar a Simulação
+
+Para executar a simulação no simulador de gravitação, siga os passos abaixo:
+
+1. **Execução do Simulador:**
+   - Abra o executável do simulador de gravitação. Isso pode ser feito clicando duas vezes no arquivo executável ou, se preferir, pelo terminal, utilizando o comando apropriado para o seu sistema operacional para executar o arquivo em Python.
+
+2. **Escolha de Simulação Personalizada:**
+   - No menu inicial do simulador, selecione a opção de "Não" para simulação pronta. Isso permitirá que você configure manualmente as condições iniciais do sistema que deseja simular.
+
+3. **Adicionando o Sol:**
+   - Coloque o Sol na origem do sistema de coordenadas, ou seja, na posição \((0,0)\) em unidades astronômicas (AU).
+   - Defina a velocidade do Sol como \( v_x = 0 \, \text{m/s} \) e \( v_y = 0 \, \text{m/s} \).
+
+4. **Adicionando a Terra:**
+   - Adicione a Terra na posição \((1,0)\) em AU, que representa uma distância média de 1 unidade astronômica do Sol.
+   - Defina a velocidade da Terra com \( v_x = 0 \, \text{m/s} \) e \( v_y = 29780 \, \text{m/s} \).
+
+5. **Iniciando a Simulação:**
+   - Após configurar o Sol e a Terra, inicie a simulação. O simulador calculará a trajetória da Terra ao redor do Sol com base nas condições iniciais fornecidas, mostrando uma órbita estável se os parâmetros estiverem corretos.
+
+### Importância da Órbita da Terra
+
+Segundo Graham, "[...] se a órbita da Terra tivesse sido um pouco mais longe dentro ou fora de onde está, a vida provavelmente nunca teria surgido e o planeta seria um deserto frio como Marte ou uma fornalha turva como Vênus". A órbita quase circular da Terra ao redor do Sol é um fator essencial para a manutenção da vida em nosso planeta. A estabilidade orbital resulta em uma distribuição relativamente uniforme da radiação solar ao longo do ano, evitando variações extremas de temperatura que tornariam a Terra inóspita. Essa regularidade garante a existência de estações do ano, ciclos climáticos estáveis e, em conjunto com a atmosfera, permite a formação e manutenção de ecossistemas. A constância da velocidade orbital e da distância média entre a Terra e o Sol também assegura que as condições para a presença de água líquida — elemento vital para a vida — permaneçam adequadas.
+
 
 ## 📋 Funcionalidades
 
