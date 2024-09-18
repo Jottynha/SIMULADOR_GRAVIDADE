@@ -2,6 +2,53 @@
 
 Este repositório contém uma simulação de gravitação e órbitas planetárias utilizando o **Pygame** para visualização e o **Tkinter** para a criação de interfaces gráficas interativas. A simulação é inspirada no projeto original de [Getulio Mendes](https://github.com/Getulio-Mendes/gravity-simulation), e adicionamos uma interface gráfica que permite ao usuário manipular os parâmetros de simulação com facilidade.
 
+## 🎯 Objetivo
+
+Este trabalho tem como objetivo implementar, dentro de um código funcional que simula comportamentos planetários, uma interação mais eficiente e otimizada entre o usuário e o simulador. Para isso, buscamos preservar o funcionamento original da simulação, ao mesmo tempo em que inserimos interfaces que facilitam o uso do software, incluindo novos recursos que expandem suas possibilidades. Utilizaremos a linguagem original do simulador, Python, e manipularemos a biblioteca **Tkinter** para o desenvolvimento dessas otimizações.
+
+## 🌍 Fundamentos Teóricos
+
+Neste trabalho, utilizamos a lei básica que governa a interação gravitacional. De acordo com o livro de física "Fundamentos de Oscilações, Fluídos e Termodinâmica" de Young & Freedman (2015), essa lei é universal: a gravidade atua do mesmo modo fundamental entre a Terra e o corpo do leitor deste arquivo, entre o Sol e um planeta, e entre um planeta e uma de suas luas.
+
+Estudando o movimento da Lua e dos planetas, Isaac Newton descobriu uma lei da gravitação que oferece o caráter fundamental da atração gravitacional entre dois corpos de qualquer natureza. Com as três leis do movimento, Newton publicou a lei da gravitação em 1687. Ela pode ser enunciada do seguinte modo, em linguagem moderna:
+
+> *Cada partícula do universo atrai qualquer outra partícula com uma força diretamente proporcional ao produto das respectivas massas e inversamente proporcional ao quadrado da distância entre as partículas.*
+
+Para chegar a essa conclusão, Newton utilizou suas três leis do movimento:
+
+1. **Primeira Lei de Newton** (Lei da Inércia): Um corpo em repouso permanece em repouso e um corpo em movimento continua em movimento retilíneo uniforme, a menos que seja atuado por uma força externa.
+   
+   $$ \vec{F} = \vec{0} \implies \vec{v} = \text{constante} $$
+
+2. **Segunda Lei de Newton**: Relaciona a força atuante sobre um corpo, sua massa e sua aceleração.
+
+   $$ \vec{F} = m \cdot \vec{a} $$
+
+3. **Terceira Lei de Newton** (Lei de Ação e Reação): Para toda ação há uma reação igual e oposta.
+
+   $$ \vec{F}_{12} = -\vec{F}_{21} $$
+
+As forças gravitacionais sempre atuam ao longo da linha que une as duas partículas e têm módulos iguais, independentemente das massas. A força gravitacional \( F_g \) entre dois corpos de massas \( m_1 \) e \( m_2 \) separados por uma distância \( r \) é dada pela fórmula:
+
+$$ F_g = G \frac{m_1 m_2}{r^2} $$
+
+A força gravitacional entre duas partículas diminui com o aumento da distância \(r\). O valor da constante gravitacional \(G\) foi determinado por Henry Cavendish em 1798, e seu valor atualmente aceito (em unidades SI) é:
+
+$$ G = 6.67384(80) \cdot 10^{-11} \, \text{N} \cdot \text{m}^2 / \text{kg}^{-2} $$
+
+### 🛰️ Simulador de Gravidade
+
+O simulador de gravidade foi projetado para demonstrar a aplicação prática da Lei da Gravitação Universal. A implementação do código Python segue os princípios teóricos da seguinte forma:
+
+- **Cálculo da Força Gravitacional:** A fórmula da gravitação universal é implementada para calcular a força de atração entre dois corpos celestes. A função `calcular_forca_gravitacional` recebe as massas e a distância entre os corpos e retorna a força gravitacional.
+  
+- **Atualização das Posições:** A força gravitacional calculada é utilizada para atualizar as posições dos corpos. As equações do movimento consideram a força de atração gravitacional, permitindo que os corpos interajam de acordo com as leis de Newton.
+
+- **Interface Gráfica:** A interface gráfica, desenvolvida com **Pygame**, permite visualizar as interações gravitacionais em tempo real. O usuário pode ajustar as massas e a distância entre os corpos e observar as mudanças nas órbitas e nas forças de atração.
+
+A aplicação desses fundamentos teóricos no projeto oferece uma visualização interativa dos conceitos de gravitação universal, permitindo ao usuário explorar as variações de massa e distância entre corpos celestes.
+
+
 ## 📋 Funcionalidades
 
 - Visualização em tempo real de órbitas planetárias e sistemas gravitacionais.
