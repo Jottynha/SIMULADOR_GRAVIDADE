@@ -30,11 +30,11 @@ Para chegar a essa conclusão, Newton utilizou suas três leis do movimento:
 
 As forças gravitacionais sempre atuam ao longo da linha que une as duas partículas e têm módulos iguais, independentemente das massas. A força gravitacional \( F_g \) entre dois corpos de massas \( m_1 \) e \( m_2 \) separados por uma distância \( r \) é dada pela fórmula:
 
-$$ F_g = G \frac{m_1 m_2}{r^2} $$
+$$F_g = G \frac{m_1 m_2}{r^2}$$
 
 A força gravitacional entre duas partículas diminui com o aumento da distância \(r\). O valor da constante gravitacional \(G\) foi determinado por Henry Cavendish em 1798, e seu valor atualmente aceito (em unidades SI) é:
 
-$$ G = 6.67384(80) \cdot 10^{-11} \, \text{N} \cdot \text{m}^2 / \text{kg}^{-2} $$
+$$G = 6.67384(80) \cdot 10^{-11} \, \text{N} \cdot \text{m}^2 / \text{kg}^{-2}$$
 
 ### 🛰️ Simulador de Gravidade
 
