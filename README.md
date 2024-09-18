@@ -1,5 +1,10 @@
 # 🌍🔭 Gravitação e Simulação de Órbitas com Tkinter e Pygame
 
+<p align="center">
+  <img src="[URL_DO_SEU_GIF](https://www.google.com/url?sa=i&url=https%3A%2F%2Fcanaltech.com.br%2Fespaco%2Fo-que-e-uma-orbita-207037%2F&psig=AOvVaw1kP7QkXuTFCeYiJZJfrpQs&ust=1726746671536000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCNDUg-e2zIgDFQAAAAAdAAAAABAE)" alt="Descrição do GIF" />
+</p>
+
+
 Este repositório contém uma simulação de gravitação e órbitas planetárias utilizando o **Pygame** para visualização e o **Tkinter** para a criação de interfaces gráficas interativas. A simulação é inspirada no projeto original de [Getulio Mendes](https://github.com/Getulio-Mendes/gravity-simulation), e adicionamos uma interface gráfica que permite ao usuário manipular os parâmetros de simulação com facilidade.
 
 ## 🎯 Objetivo
@@ -133,11 +138,11 @@ Para executar a simulação no simulador de gravitação, siga os passos abaixo:
 
 3. **Adicionando o Sol:**
    - Coloque o Sol na origem do sistema de coordenadas, ou seja, na posição \(0,0\) em unidades astronômicas (AU).
-   - Defina a velocidade do Sol como $v_x = 0  \text{m/s}$ e $v_y = 0  \text{m/s}$.
+   - Defina a velocidade do Sol como $v_x = 0  \text{ m/s}$ e $v_y = 0  \text{ m/s}$.
 
 4. **Adicionando a Terra:**
    - Adicione a Terra na posição \(1,0\) em AU, que representa uma distância média de 1 unidade astronômica do Sol.
-   - Defina a velocidade da Terra com $v_x = 0  \text{m/s}$ e $v_y = 29780 \text{m/s}$.
+   - Defina a velocidade da Terra com $v_x = 0  \text{ m/s}$ e $v_y = 29780 \text{ m/s}$.
 
 5. **Iniciando a Simulação:**
    - Após configurar o Sol e a Terra, inicie a simulação. O simulador calculará a trajetória da Terra ao redor do Sol com base nas condições iniciais fornecidas, mostrando uma órbita estável se os parâmetros estiverem corretos.
@@ -250,7 +255,3 @@ Este projeto é baseado no simulador original de [Getulio Mendes](https://github
 2. Alexandre Carciofi. *Aula 6 - Dinâmica: Gravitação*, Departamento de Astronomia, IAG, Universidade de São Paulo, 2019. Disponível em: [http://www.astro.iag.usp.br/~carciofi/aulas_aga0210/aula6.pdf](http://www.astro.iag.usp.br/~carciofi/aulas_aga0210/aula6.pdf). Acesso em: 24 ago. 2024.
 
 3. Graham, Robert W. Earth’s orbit and its impact on climate and life. *Scientific American*, 2022. Disponível em: [https://www.livescience.com/31788-why-earth-perfect-for-life.html](https://www.livescience.com/31788-why-earth-perfect-for-life.html). Acesso em: 5 set. 2024.
-
-
-
-Esse é o código Markdown completo para o README que pode ser copiado diretamente para o arquivo `README.md` do seu repositório.
