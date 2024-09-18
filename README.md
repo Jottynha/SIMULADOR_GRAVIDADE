@@ -1,34 +1,35 @@
-# Simulação de Gravitação e Órbitas de Planetas
+# 🌍🔭 Gravitação e Simulação de Órbitas com Tkinter e Pygame
 
-![Gravitação e Órbitas]([https://www.google.com/url?sa=i&url=https%3A%2F%2Fcanaltech.com.br%2Fespaco%2Fo-que-e-uma-orbita-207037%2F&psig=AOvVaw3vPc4XWXKtI1SqoawYRK17&ust=1726743734010000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCLiBqOqrzIgDFQAAAAAdAAAAABAK]) 
+Este repositório contém uma simulação de gravitação e órbitas planetárias utilizando o **Pygame** para visualização e o **Tkinter** para a criação de interfaces gráficas interativas. A simulação é inspirada no projeto original de [Getulio Mendes](https://github.com/Getulio-Mendes/gravity-simulation), e adicionamos uma interface gráfica que permite ao usuário manipular os parâmetros de simulação com facilidade.
 
-Este repositório contém um projeto que combina **Tkinter** e **Pygame** para simular a gravitação e as órbitas de planetas. A interface gráfica permite uma interação intuitiva com a simulação, tornando a experiência mais acessível e visual.
+## 📋 Funcionalidades
 
-## Funcionalidades
+- Visualização em tempo real de órbitas planetárias e sistemas gravitacionais.
+- Interface gráfica para controle e manipulação dos corpos celestes (como massa, posição, velocidade, etc.) através do **Tkinter**.
+- Simulação eficiente e fluida com **Pygame**.
+- Criação de um executável para fácil uso, utilizando **cx_Freeze**.
 
-- **Simulação Realista:** O projeto utiliza leis físicas para calcular a gravitação entre os corpos celestes.
-- **Interface Gráfica Intuitiva:** Através do Tkinter, o usuário pode interagir facilmente com a simulação.
-- **Visualização em Tempo Real:** As órbitas dos planetas são atualizadas em tempo real, permitindo que o usuário observe as dinâmicas envolvidas.
-- **Personalização:** Permite ajustar parâmetros como a massa dos planetas e a distância entre eles, proporcionando uma experiência de aprendizado enriquecedora.
+## 🎮 Demonstração da Interface
 
-## Estrutura da Interface Tkinter
-
-O projeto utiliza o Tkinter para criar uma interface de usuário simples e intuitiva. Abaixo está um exemplo básico da estrutura da interface:
+A interface gráfica foi projetada para ser simples e intuitiva, usando o **Tkinter**. Abaixo, mostramos um exemplo de código básico da estrutura de uma janela criada com o Tkinter para o projeto:
 
 ```python
 import tkinter as tk
 
 def iniciar_simulacao():
-    # Lógica para iniciar a simulação
-    pass
+    print("Simulação Iniciada!")
+    # Aqui você chama a função do Pygame que inicializa a simulação.
 
-root = tk.Tk()
-root.title("Simulação de Gravitação")
+# Criando a janela principal
+janela = tk.Tk()
+janela.title("Simulação de Gravidade")
 
-# Botão para iniciar a simulação
-botao_iniciar = tk.Button(root, text="Iniciar Simulação", command=iniciar_simulacao)
-botao_iniciar.pack(pady=10)
+# Criando os elementos da interface
+label = tk.Label(janela, text="Bem-vindo à Simulação de Gravidade")
+label.pack()
 
-# Outros componentes da interface, como entradas e labels
+botao_iniciar = tk.Button(janela, text="Iniciar Simulação", command=iniciar_simulacao)
+botao_iniciar.pack()
 
-root.mainloop()
+# Rodando a interface gráfica
+janela.mainloop()
