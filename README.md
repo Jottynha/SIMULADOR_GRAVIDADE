@@ -19,14 +19,12 @@ Para chegar a essa conclusão, Newton utilizou suas três leis do movimento:
 1. **Primeira Lei de Newton** (Lei da Inércia): Um corpo em repouso permanece em repouso e um corpo em movimento continua em movimento retilíneo uniforme, a menos que seja atuado por uma força externa.
    
    $$ \vec{F} = \vec{0} \implies \vec{v} = \text{constante} $$
-   
-3. **Segunda Lei de Newton**: Relaciona a força atuante sobre um corpo, sua massa e sua aceleração.
+2. **Segunda Lei de Newton**: Relaciona a força atuante sobre um corpo, sua massa e sua aceleração.
 
-   A fórmula é: `F = m * a`
+   $$ \vec{F} = m \cdot \vec{a} $$
+3. **Terceira Lei de Newton** (Lei de Ação e Reação): Para toda ação há uma reação igual e oposta.
 
-4. **Terceira Lei de Newton** (Lei de Ação e Reação): Para toda ação há uma reação igual e oposta.
-
-   A fórmula é: `F_12 = -F_21`
+   $$ \vec{F}_{12} = -\vec{F}_{21} $$
 
 As forças gravitacionais sempre atuam ao longo da linha que une as duas partículas e têm módulos iguais, independentemente das massas. A força gravitacional \( F_g \) entre dois corpos de massas \( m_1 \) e \( m_2 \) separados por uma distância \( r \) é dada pela fórmula:
 
