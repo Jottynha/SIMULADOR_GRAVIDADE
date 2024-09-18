@@ -90,7 +90,7 @@ onde \( v \) é a velocidade da Terra em sua órbita. Como a força gravitaciona
 
 $$\frac{G \cdot M_{\text{Sol}} \cdot M_{\text{Terra}}}{r^2} = M_{\text{Terra}} \cdot \frac{v^2}{r}$$
 
-Podemos simplificar a equação cancelando a massa da Terra \( M_{\text{Terra}} \):
+Podemos simplificar a equação cancelando a massa da Terra \( M_Terra \):
 
 $$\frac{G \cdot M_{\text{Sol}}}{r^2} = \frac{v^2}{r}$$
 
@@ -133,11 +133,11 @@ Para executar a simulação no simulador de gravitação, siga os passos abaixo:
 
 3. **Adicionando o Sol:**
    - Coloque o Sol na origem do sistema de coordenadas, ou seja, na posição \((0,0)\) em unidades astronômicas (AU).
-   - Defina a velocidade do Sol como $v_x = 0 \, \text{m/s}$ e $v_y = 0 \, \text{m/s}$.
+   - Defina a velocidade do Sol como $v_x = 0 \, \text{m/s}$ e $v_y = 0  \text{m/s}$.
 
 4. **Adicionando a Terra:**
    - Adicione a Terra na posição \((1,0)\) em AU, que representa uma distância média de 1 unidade astronômica do Sol.
-   - Defina a velocidade da Terra com $v_x = 0 \, \text{m/s}$ e $v_y = 29780 \, \text{m/s}$.
+   - Defina a velocidade da Terra com $v_x = 0 \, \text{m/s}$ e $v_y = 29780 \text{m/s}$.
 
 5. **Iniciando a Simulação:**
    - Após configurar o Sol e a Terra, inicie a simulação. O simulador calculará a trajetória da Terra ao redor do Sol com base nas condições iniciais fornecidas, mostrando uma órbita estável se os parâmetros estiverem corretos.
