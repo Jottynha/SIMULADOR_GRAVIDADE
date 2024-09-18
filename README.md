@@ -1,7 +1,7 @@
 # 🌍🔭 Gravitação e Simulação de Órbitas com Tkinter e Pygame
 
 <p align="center">
-  <img src="[URL_DO_SEU_GIF](https://www.google.com/url?sa=i&url=https%3A%2F%2Fcanaltech.com.br%2Fespaco%2Fo-que-e-uma-orbita-207037%2F&psig=AOvVaw1kP7QkXuTFCeYiJZJfrpQs&ust=1726746671536000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCNDUg-e2zIgDFQAAAAAdAAAAABAE)" alt="Descrição do GIF" />
+  <img src="[https://www.google.com/url?sa=i&url=https%3A%2F%2Fcanaltech.com.br%2Fespaco%2Fo-que-e-uma-orbita-207037%2F&psig=AOvVaw1kP7QkXuTFCeYiJZJfrpQs&ust=1726746671536000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCNDUg-e2zIgDFQAAAAAdAAAAABAE]" alt="Descrição do GIF" />
 </p>
 
 
